@@ -1,134 +1,76 @@
 package com.braxly.lapancaproject.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
+import androidx.drawerlayout.widget.DrawerLayout;
 
-import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.LinearLayout;
+
+import com.braxly.lapancaproject.fragment.AboutFragment;
+import com.braxly.lapancaproject.fragment.ComprasFragment;
+import com.braxly.lapancaproject.fragment.HomeFragment;
+import com.braxly.lapancaproject.fragment.ProfileFragment;
+import com.braxly.lapancaproject.R;
+import com.braxly.lapancaproject.fragment.ReserveFragment;
+import com.google.android.material.navigation.NavigationView;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.GravityCompat;
+
+import android.view.MenuItem;
 import android.widget.Toast;
 
-import com.android.volley.AuthFailureError;
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.Volley;
-import com.braxly.lapancaproject.R;
-import com.braxly.lapancaproject.StartApp;
-import com.braxly.lapancaproject.conexionApi.ConexionApi;
-import com.braxly.lapancaproject.models.Producto;
-import com.braxly.lapancaproject.recyclerAdapters.ProductoAdapterRecycler;
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-public class MainActivity extends AppCompatActivity {
-    private List<Producto> productos; //agregacion
-    private RequestQueue requestQueue;
-    private ProductoAdapterRecycler productoAdapterRecycler;
-    private RecyclerView recyclerViewProducto;
-
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
+    private DrawerLayout drawerLayout;
     @Override
-    protected void onCreate(Bundle savedInstanceState) {//asosiacion
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        cargarListaProductos();
-
-        iniciarRecyclerViewProductos();
-        bottomNavigation();
-        Toast.makeText(getApplicationContext(), ConexionApi.AUTH_LOGIN, Toast.LENGTH_SHORT).show();
+        Toolbar toolbar = findViewById(R.id.toolbar); //Ignore red line errors
+        setSupportActionBar(toolbar);
+        drawerLayout = findViewById(R.id.drawer_layout);
+        NavigationView navigationView = findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.open_nav,
+                R.string.close_nav);
+        drawerLayout.addDrawerListener(toggle);
+        toggle.syncState();
+        if (savedInstanceState == null) {
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new HomeFragment()).commit();
+            navigationView.setCheckedItem(R.id.nav_home);
+        }
     }
-
-    private void bottomNavigation(){
-        LinearLayout HomeBtn = findViewById(R.id.homeBtn);
-        LinearLayout CartBtn = findViewById(R.id.cartBtn);
-
-        HomeBtn.setOnClickListener(v -> startActivity(new Intent(MainActivity.this, MainActivity.class)));
-
-        CartBtn.setOnClickListener(v -> startActivity(new Intent(MainActivity.this, CartaActivity.class)));
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.nav_home:
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new HomeFragment()).commit();
+                break;
+            case R.id.nav_reserve:
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new ReserveFragment()).commit();
+                break;
+            case R.id.nav_compra:
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new ComprasFragment()).commit();
+                break;
+            case R.id.nav_mi_profile:
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new ProfileFragment()).commit();
+                break;
+            case R.id.nav_about:
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new AboutFragment()).commit();
+                break;
+            case R.id.nav_logout:
+                Toast.makeText(this, "Logout!", Toast.LENGTH_SHORT).show();
+                break;
+        }
+        drawerLayout.closeDrawer(GravityCompat.START);
+        return true;
     }
-    private void iniciarRecyclerViewProductos(){
-
-        productos = new ArrayList<>();
-        recyclerViewProducto = findViewById(R.id.recyclerProductos);
-        recyclerViewProducto.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL,false));
-        productoAdapterRecycler = new ProductoAdapterRecycler(productos);
-        recyclerViewProducto.setAdapter(productoAdapterRecycler);
+    @Override
+    public void onBackPressed() {
+        if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
+            drawerLayout.closeDrawer(GravityCompat.START);
+        } else {
+            super.onBackPressed();
+        }
     }
-    private void cargarListaProductos() {
-
-        requestQueue=Volley.newRequestQueue(getApplicationContext());
-
-        String url = Uri.parse(ConexionApi.URL_BASE + "/producto")
-                .buildUpon()
-                .build().toString();
-
-        JsonObjectRequest requerimiento = new JsonObjectRequest(Request.Method.GET,
-                url, null,
-                new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject response) {
-
-                        try {
-
-                            int totalRegistros = response.getInt("Total de registros");
-
-                            for (int i = 0; i < totalRegistros; i++) {
-
-                                String valor = response.get("Detalles").toString();
-                                JSONArray arreglo = new JSONArray(valor);
-                                JSONObject objeto = new JSONObject(arreglo.get(i).toString());
-
-                                String prodId = objeto.getString("prod_id");
-                                String prodTiprId = objeto.getString("prod_tipr_id");
-                                String tiprNombre = objeto.getString("tipr_nombre");
-                                String prodNombre = objeto.getString("prod_nombre");
-                                String prodDescripcion = objeto.getString("prod_descripcion");
-                                String prodStock = objeto.getString("prod_stock");
-                                Double prodPrecio = Double.parseDouble(objeto.getString("prod_precio"));
-                                String prodFoto = objeto.getString("prod_foto");
-                                // Toast.makeText(getApplicationContext(), "hola", Toast.LENGTH_SHORT).show();
-
-                                Producto producto = new Producto(prodId, prodTiprId, tiprNombre, prodNombre, prodDescripcion, prodStock, prodPrecio, prodFoto);
-
-                                productos.add(producto);
-                                productoAdapterRecycler.notifyItemRangeInserted(productos.size(), 1);
-                            }
-                        } catch (JSONException e) {
-                            throw new RuntimeException(e);
-                        }
-
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-
-                    }
-                })
-        {
-            @Override
-            public Map<String, String> getHeaders() throws AuthFailureError {
-                HashMap<String, String> params = new HashMap<String, String>();
-                params.put("Authorization", ConexionApi.AUTH);
-                return params;
-            }
-        };
-
-        requestQueue.add(requerimiento);
-    }
-    public void pasarVistaReserva(View view){
-        Intent i = new Intent(MainActivity.this, EleccionMesaActivity.class);
-        startActivity(i);
-    }
-
 }

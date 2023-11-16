@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn = "navigation_view">
+
+    <group
+        android:checkableBehavior="single">
+
+        <item
+            android:id="@+id/nav_home"
+            android:icon="@drawable/nav_home"
+            android:title="Inicio"/>
+        <item
+            android:id="@+id/nav_reserve"
+            android:icon="@drawable/nav_reserve"
+            android:title="Mis reservas"/>
+
+        <item
+            android:id="@+id/nav_compra"
+            android:icon="@drawable/nav_shoping"
+            android:title="Mis Compras"/>
+
+
+        <item
+            android:id="@+id/nav_mi_profile"
+            android:icon="@drawable/nav_profile"
+            android:title="Mi cuenta"/>
+
+        <item
+            android:id="@+id/nav_about"
+            android:icon="@drawable/nav_about"
+            android:title="Sobre nosotros"/>
+    </group>
+    <item
+        android:title="">
+
+        <menu>
+            <item
+                android:id="@+id/nav_logout"
+                android:icon="@drawable/nav_logout"
+                android:title="Cerrar sesión"/>
+        </menu>
+
+    </item>
+
+</menu>

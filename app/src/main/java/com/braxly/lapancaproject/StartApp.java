@@ -22,7 +22,7 @@ public class StartApp extends AppCompatActivity {
                 }catch(InterruptedException e){
                     e.printStackTrace();
                 }finally {
-                    Intent i = new Intent(StartApp.this, LoginActivity.class);
+                    Intent i = new Intent(StartApp.this, MainActivity.class);
                     startActivity(i);
 
 

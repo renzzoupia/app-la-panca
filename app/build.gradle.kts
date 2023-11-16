@@ -38,7 +38,6 @@ dependencies {
     implementation ("com.google.code.gson:gson:2.9.1") /* FORMATO JSON */
     implementation ("com.github.bumptech.glide:glide:4.12.0")/* MEJORA LAS IMAGENES*/
     implementation("com.google.android.gms:play-services-maps:18.2.0")
-    implementation ("org.mindrot:jbcrypt:0.4") //Para eencriptar contraseñas
 
     testImplementation ("junit:junit:4.13.2")
     androidTestImplementation ("androidx.test.ext:junit:1.1.3")
