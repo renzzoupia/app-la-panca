@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#f3f3f3"
+    android:onClick="regresarVistaMain"
     tools:context=".activity.ProductoDetallesActivity">
 
     <ScrollView
@@ -31,15 +32,15 @@
                     app:srcCompat="@drawable/fast_1" />
 
                 <ImageView
-                    android:id="@+id/imageView3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:id="@+id/btnBackMain"
+                    android:layout_width="74dp"
+                    android:layout_height="60dp"
                     android:layout_marginStart="24dp"
                     android:layout_marginTop="24dp"
                     android:padding="8dp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/arrow"
+                    app:srcCompat="@drawable/ic_arrow_back"
                     tools:layout_marginStart="24dp" />
 
                 <LinearLayout
@@ -281,8 +282,8 @@
                             android:background="@drawable/white_background"
                             android:gravity="center"
                             android:text="-"
-                            android:textSize="21sp"
                             android:textColor="@color/black"
+                            android:textSize="21sp"
                             android:textStyle="bold" />
 
                         <TextView
@@ -302,24 +303,24 @@
                             android:layout_width="35dp"
                             android:layout_height="35dp"
                             android:layout_margin="4dp"
-                            android:textSize="21sp"
                             android:background="@drawable/white_background"
                             android:gravity="center"
                             android:text="+"
                             android:textColor="@color/black"
+                            android:textSize="21sp"
                             android:textStyle="bold" />
                     </LinearLayout>
                 </LinearLayout>
 
                 <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/btnAddToCart"
+                    style="@android:style/Widget.Button"
                     android:layout_width="0dp"
+                    android:layout_height="wrap_content"
                     android:layout_margin="24dp"
                     android:background="@drawable/green_button_background"
-                    style="@android:style/Widget.Button"
-                    android:textColor="@color/white"
-                    android:layout_height="wrap_content"
                     android:text="Add to cart"
+                    android:textColor="@color/white"
                     android:textSize="20sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"

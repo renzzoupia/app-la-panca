@@ -1,29 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="176dp"
     android:gravity="bottom"
     android:padding="16dp"
     android:background="@drawable/nav_header"
-    android:theme="@style/ThemeOverlay.AppCompat.Dark">
-
+    android:theme="@style/ThemeOverlay.AppCompat.Dark"
+    tools:context=".activity.MainActivity">
 
 
     <TextView
+        android:id="@+id/txtNombreHeader"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Android Knowledge"
+        android:text="renzoupiaa"
         android:textColor="@color/white"
-        android:textStyle="bold"/>
+        android:textStyle="bold" />
 
     <TextView
+        android:id="@+id/txtCorreoClienteHeader"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="contact@androidknowledge.com"
+        android:layout_marginBottom="16dp"
+        android:text="renzoupiachihua3@gmail.com"
         android:textColor="@color/white"
-        android:textSize="14sp"
-        android:layout_marginBottom="16dp"/>
+        android:textSize="14sp" />
 
 </LinearLayout>

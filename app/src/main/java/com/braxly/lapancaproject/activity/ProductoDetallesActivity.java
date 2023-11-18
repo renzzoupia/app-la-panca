@@ -26,6 +26,7 @@ public class ProductoDetallesActivity extends AppCompatActivity {
     private Producto producto;
     private int numberOrder = 1;
     private ManejarCarta manejarCarta;
+    private ImageView backBtn;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,6 +36,8 @@ public class ProductoDetallesActivity extends AppCompatActivity {
 
         iniciarProductoDetallesActivity();
         obtenerProductos();
+        regresarVistaMain();
+        desactivarMinusProducto();
     }
     private void iniciarProductoDetallesActivity(){
         addToCartBtn = findViewById(R.id.btnAddToCart);
@@ -48,6 +51,7 @@ public class ProductoDetallesActivity extends AppCompatActivity {
         startTxt = findViewById(R.id.txtStart);
         caloryTxt = findViewById(R.id.txtCal);
         timeTxt = findViewById(R.id.txtTime);
+        backBtn = findViewById(R.id.btnBackMain);
     }
     private void obtenerProductos(){
         producto = (Producto) getIntent().getSerializableExtra("producto");
@@ -71,7 +75,7 @@ public class ProductoDetallesActivity extends AppCompatActivity {
         //Double precio = Double.parseDouble(prodPrecio);
 
         tittleTxt.setText(producto.getProdNombre());
-        feeTxt.setText("S/. " + producto.getProdNombre());
+        feeTxt.setText("S/. " + producto.getProdPrecio());
         descriptionTxt.setText(producto.getProdDescripcion());
         numberOrderTxt.setText("" + numberOrder);
         caloryTxt.setText("30  Cal");
@@ -83,12 +87,14 @@ public class ProductoDetallesActivity extends AppCompatActivity {
             numberOrder = numberOrder + 1;
             numberOrderTxt.setText("" + numberOrder);
             addToCartBtn.setText("Agregar a tu carta - S/. " + Math.round(numberOrder * producto.getProdPrecio()));
+            desactivarMinusProducto();
         });
 
         minusBtn.setOnClickListener(view -> {
             numberOrder = numberOrder - 1;
             numberOrderTxt.setText("" + numberOrder);
             addToCartBtn.setText("Agregar a tu carta - S/. " + Math.round(numberOrder * producto.getProdPrecio()));
+            desactivarMinusProducto();
         });
 
         addToCartBtn.setOnClickListener(view -> {
@@ -98,5 +104,21 @@ public class ProductoDetallesActivity extends AppCompatActivity {
             Intent i = new Intent(ProductoDetallesActivity.this, MainActivity.class);
             startActivity(i);
         });
+    }
+
+    public void regresarVistaMain(){
+        backBtn.setOnClickListener(v -> {
+            Intent i = new Intent(this, MainActivity.class);
+            startActivity(i);
+        });
+    }
+
+    public void desactivarMinusProducto(){
+        String textoItem = numberOrderTxt.getText().toString();
+        if (textoItem.equals("1")) {
+            minusBtn.setEnabled(false); // Desactiva textView1
+        }else{
+            minusBtn.setEnabled(true);
+        }
     }
 }

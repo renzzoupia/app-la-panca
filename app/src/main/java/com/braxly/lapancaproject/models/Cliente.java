@@ -1,6 +1,8 @@
 package com.braxly.lapancaproject.models;
 
-public class Cliente {
+import java.io.Serializable;
+
+public class Cliente implements Serializable {
     private String clieId;
     private String clieUsuaId;
     private String clieNombres;

@@ -1,14 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activity.RegistrarUsuarioActivity"
-    android:background="@color/orange_light">
-
+    android:orientation="vertical"
+    android:background="@color/orange_light"
+    tools:context=".activity.RestablecerContraActivity">
 
     <LinearLayout
         android:layout_width="70dp"
@@ -45,49 +43,58 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
+
             android:clickable="true"
             android:focusable="true"
             android:fontFamily="@font/nexa_light"
             android:gravity="center"
-            android:text="Registrate rapido y sencillo"
+            android:text="Ingrese su nueva contraseña"
             android:textColor="@color/light"
             android:textSize="24sp"
             android:textStyle="bold"/>
-
-
         <EditText
-            android:id="@+id/txtUsuarioRegistrar"
+            android:id="@+id/txtContraRestablecer"
             android:layout_width="300dp"
             android:layout_height="50dp"
             android:layout_margin="10dp"
             android:background="@drawable/rounded_corners"
-            android:drawableLeft="@drawable/ic_person"
             android:ems="20"
-            android:fontFamily="@font/nexa_light"
-            android:hint="  Usuario"
-            android:inputType="text"
-            android:padding="10dp"
-            android:textColor="@color/darkblue"
-            android:textColorHint="@color/blue" />
-
-
-        <EditText
-            android:id="@+id/txtContraRegistrar"
-            android:layout_width="300dp"
-            android:layout_height="50dp"
-            android:layout_margin="10dp"
-            android:background="@drawable/rounded_corners"
-            android:drawableLeft="@drawable/ic_lock"
-            android:ems="10"
             android:fontFamily="@font/nexa_light"
             android:hint="  Contraseña"
             android:inputType="textPassword"
             android:padding="10dp"
             android:textColor="@color/darkblue"
             android:textColorHint="@color/blue" />
+        <EditText
+            android:id="@+id/txtContraRestablecerConfirmar"
+            android:layout_width="300dp"
+            android:layout_height="50dp"
+            android:layout_margin="10dp"
+            android:background="@drawable/rounded_corners"
+            android:ems="20"
+            android:fontFamily="@font/nexa_light"
+            android:hint="  Confirmar contraseña"
+            android:inputType="textPassword"
+            android:padding="10dp"
+            android:textColor="@color/darkblue"
+            android:textColorHint="@color/blue" />
+        <EditText
+            android:id="@+id/txtUsuaIdRestablecer"
+            android:layout_width="300dp"
+            android:layout_height="50dp"
+            android:layout_margin="10dp"
+            android:visibility="gone"
+            android:background="@drawable/rounded_corners"
+            android:ems="20"
+            android:fontFamily="@font/nexa_light"
+            android:hint="  Confirmar contraseña"
+            android:inputType="textPassword"
+            android:padding="10dp"
+            android:textColor="@color/darkblue"
+            android:textColorHint="@color/blue" />
 
         <EditText
-            android:id="@+id/txtUsuaId"
+            android:id="@+id/txtUsernameRestablecer"
             android:visibility="gone"
             android:layout_width="300dp"
             android:layout_height="50dp"
@@ -111,12 +118,11 @@
             android:fontFamily="@font/nexa_light"
             android:foreground="?attr/selectableItemBackgroundBorderless"
             android:gravity="center"
-            android:onClick="registrarUsuario"
-            android:text="Siguiente"
+            android:onClick="confirmarRestablecerContra"
+            android:text="Restablecer contraseña"
             android:textColor="@color/black" />
 
 
 
     </LinearLayout>
-
 </LinearLayout>

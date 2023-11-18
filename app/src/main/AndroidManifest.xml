@@ -16,6 +16,15 @@
         android:theme="@style/Theme.LaPancaProject"
         tools:targetApi="31">
         <activity
+            android:name=".activity.RestablecerContraActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.RecuperarContraActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.RegistrarClienteActivity"
+            android:exported="false" />
+        <activity
             android:name=".activity.EleccionMesaActivity"
             android:exported="false" />
         <activity
@@ -25,16 +34,7 @@
             android:name=".activity.CartaActivity"
             android:exported="false" />
         <activity
-            android:name=".activity.RegistrarPersonaActivity"
-            android:exported="false" />
-        <activity
-            android:name=".activity.CartaDetallesActivity"
-            android:exported="false" />
-        <activity
             android:name=".activity.ProductoDetallesActivity"
-            android:exported="false" />
-        <activity
-            android:name=".activity.ListaProductosActivity"
             android:exported="false" />
         <activity
             android:name=".activity.RegistrarUsuarioActivity"
@@ -43,25 +43,10 @@
             android:name=".activity.LoginActivity"
             android:exported="false" />
         <activity
-            android:name=".activity.ClienteActivity"
-            android:exported="false" />
-        <activity
-            android:name=".activity.ConsultarPersonaActivity"
-            android:exported="false" />
-        <activity
-            android:name=".activity.RegisterPersonaActivity"
-            android:exported="false" />
-        <activity
-            android:name=".activity.ListaPersonaActivity"
-            android:exported="false" />
-        <activity
-            android:name=".activity.RegisterActivity"
-            android:exported="false" />
-        <activity
             android:name=".activity.MainActivity"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
             android:exported="false"
             android:noHistory="true"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
             android:windowSoftInputMode="stateHidden" />
         <activity
             android:name=".StartApp"

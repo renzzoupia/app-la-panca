@@ -28,6 +28,11 @@
             android:title="Mi cuenta"/>
 
         <item
+            android:id="@+id/nav_login"
+            android:icon="@drawable/nav_login"
+            android:title="Iniciar Sesión"/>
+
+        <item
             android:id="@+id/nav_about"
             android:icon="@drawable/nav_about"
             android:title="Sobre nosotros"/>

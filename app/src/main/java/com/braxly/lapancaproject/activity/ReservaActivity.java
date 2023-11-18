@@ -9,6 +9,8 @@ import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -63,7 +65,7 @@ public class ReservaActivity extends AppCompatActivity implements View.OnClickLi
         //recyclerMesaSelected = findViewById(R.id.recyclerMesaSelected);
         //nameMesa = findViewById(R.id.txtNumMesa);
         //cantidadPersonas = findViewById(R.id.txtReferenciaMesa);
-        cantidadPersonas = findViewById(R.id.txtCantidadPersonasSelected);
+        //cantidadPersonas = findViewById(R.id.txtCantidadPersonasSelected);
         nameMesa = findViewById(R.id.txtNameMesaSelected);
         fechaReserva = findViewById(R.id.txtReservaFecha);
         horaReserva = findViewById(R.id.txtHoraReserva);
@@ -86,7 +88,7 @@ public class ReservaActivity extends AppCompatActivity implements View.OnClickLi
     public void obtenerMesa(){
         mesa = (Mesa) getIntent().getSerializableExtra("mesa");
 
-        nameMesa.setText("Mesa " + mesa.getMesaNumero());
+        nameMesa.setText(mesa.getMesaNumero());
         mesaId = mesa.getMesaId();
     }
 
@@ -201,5 +203,32 @@ public class ReservaActivity extends AppCompatActivity implements View.OnClickLi
         Intent pasarMensaje = new Intent(context,MainActivity.class);
         //activamos el  Intent
         startActivity(pasarMensaje);
+    }
+
+    private void validarCantidadPersona(){
+        personaCantidad.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                // No se utiliza en este caso
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                // No se utiliza en este caso
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                String text = personaCantidad.getText().toString().trim();
+
+                if (text.length() < 3) {
+                    personaCantidad.setError("Solo se puede reservar hasta 8");
+                    // Puedes deshabilitar un botón o realizar otra acción si la longitud es menor a 10
+                } else {
+                    personaCantidad.setError(null);
+                    // La longitud es válida, realiza la acción correspondiente
+                }
+            }
+        });
     }
 }

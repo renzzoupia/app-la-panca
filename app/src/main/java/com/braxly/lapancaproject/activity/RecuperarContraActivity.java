@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Base64;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -19,42 +18,38 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.braxly.lapancaproject.R;
 import com.braxly.lapancaproject.conexionApi.ConexionApi;
-import org.json.JSONArray;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.Map;
 
-public class LoginActivity extends AppCompatActivity {
-    private EditText txtUsername, txtPass;
+public class RecuperarContraActivity extends AppCompatActivity {
+    private EditText correoRecuperarTxt;
     private Context context;
     RequestQueue requestQueue;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
+        setContentView(R.layout.activity_recuperar_contra);
 
-        iniciarLoginActivity();
+        iniciarActivity();
     }
-    private void iniciarLoginActivity(){
-        txtUsername = findViewById (R.id.txtUsuario);
-        txtPass = findViewById(R.id.txtContra);
 
+    private void iniciarActivity(){
+        correoRecuperarTxt = findViewById(R.id.txtCorreoRecuperar);
         context = getApplicationContext();
-
         requestQueue = Volley.newRequestQueue(context);
     }
-    public void iniciarSesion2(View vista) {
 
-        String usuario = txtUsername.getText().toString().trim();
-        String contra = txtPass.getText().toString().trim();
-        String url2 = ConexionApi.URL_BASE + "login";
+    public void buscarCorreo(View view){
+        String correoRecuperar = correoRecuperarTxt.getText().toString().trim();
+        String url = ConexionApi.URL_BASE + "recuperar";
 
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
                 Request.Method.POST,
-                url2,
+                url,
                 null,
                 new Response.Listener<JSONObject>() {
                     @Override
@@ -70,32 +65,20 @@ public class LoginActivity extends AppCompatActivity {
                             if(valor.equals("200")){
                                 JSONObject datos = response.getJSONObject("Datos");
 
-                                String clieId = datos.getString("clie_id");
-
-                                String usuaUsername = datos.getString("usua_username");
-                                String usuaUserSecreto = datos.getString("usua_user_secreto");
-                                String usuaLlaveSecreta = datos.getString("usua_llave_secreta");
-
-                                String clieUsuario = datos.getString("usua_username");
-                                String clieCorreo = datos.getString("clie_correo");
-
-                                //ConexionApi.userSecreto = usuaUserSecreto;
-                                //ConexionApi.llaveSecreta = usuaLlaveSecreta;
-                                ConexionApi.clieId = clieId;
-                                ConexionApi.clieUsuario = clieUsuario;
-                                ConexionApi.clieCorreo = clieCorreo;
-
-                                Toast.makeText(getApplicationContext(), "Bienvenido " + usuaUsername, Toast.LENGTH_SHORT).show();
-                                Intent pasarMainActivity = new Intent(context,MainActivity.class);
-                                //activamos el  Intent
+                                String usuaId = datos.getString("usua_id");
+                                String usuaUsernameRecuperado = datos.getString("usua_username");
+                                Toast.makeText(getApplicationContext(), usuaId, Toast.LENGTH_SHORT).show();
+                                Intent pasarMainActivity = new Intent(context,RestablecerContraActivity.class);
+                                pasarMainActivity.putExtra("usuaId", usuaId);
+                                pasarMainActivity.putExtra("usuaUsername", usuaUsernameRecuperado);
                                 startActivity(pasarMainActivity);
                             }
                             if(valor.equals("404")){
-                                Toast.makeText(getApplicationContext(), "Datos incorrectos", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getApplicationContext(), "Correo no encontrado", Toast.LENGTH_SHORT).show();
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
-                            Toast.makeText(getApplicationContext(), "Datos incorrectos", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplicationContext(), "Correo no encontrado", Toast.LENGTH_SHORT).show();
                         }
 
                     }
@@ -112,27 +95,11 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
                 HashMap<String, String> params = new HashMap<String, String>();
-                params.put("Usuario", usuario);
-                params.put("Contra", contra);
+                params.put("Correo", correoRecuperar);
                 return params;
             }
         };
 
         requestQueue.add(jsonObjectRequest);
-
     }
-
-    public void pasarCrearCuenta(View vista){
-        Intent pasarMensaje = new Intent(getApplicationContext(),RegistrarUsuarioActivity.class);
-        //activamos el  Intent
-        startActivity(pasarMensaje);
-    }
-
-    public void pasarOlvideContra(View vista){
-        Intent pasarMensaje = new Intent(getApplicationContext(),RecuperarContraActivity.class);
-        //activamos el  Intent
-        startActivity(pasarMensaje);
-    }
-
-
 }

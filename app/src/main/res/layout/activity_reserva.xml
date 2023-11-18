@@ -103,21 +103,12 @@
                     <TextView
                         android:id="@+id/txtNameMesaSelected"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:layout_marginBottom="2dp"
                         android:text="A01"
                         android:textColor="@android:color/black"
-                        android:textSize="24sp"
+                        android:textSize="20sp"
                         android:textStyle="bold"></TextView>
-
-                    <TextView
-                        android:id="@+id/txtCantidadPersonasSelected"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Peru"
-                        android:textSize="18sp">
-
-                    </TextView>
 
                 </LinearLayout>
 

@@ -2,13 +2,12 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
     xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activity.RegistrarUsuarioActivity"
+    tools:context=".activity.RegistrarClienteActivity"
     android:background="@color/orange_light">
-
 
     <LinearLayout
         android:layout_width="70dp"
@@ -25,7 +24,6 @@
             android:layout_weight="1"
             app:srcCompat="@drawable/ic_arrow_back" />
     </LinearLayout>
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -33,15 +31,9 @@
         android:gravity="center_horizontal"
         android:orientation="vertical">
 
-        <ImageView
-            android:id="@+id/imageView"
-            android:layout_width="204dp"
-            android:layout_height="154dp"
-            android:layout_marginBottom="5dp"
-            app:srcCompat="@drawable/logo_la_panca" />
+
 
         <TextView
-            android:id="@+id/textRegistrar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
@@ -49,45 +41,100 @@
             android:focusable="true"
             android:fontFamily="@font/nexa_light"
             android:gravity="center"
-            android:text="Registrate rapido y sencillo"
+            android:text="Completa los datos finales"
             android:textColor="@color/light"
             android:textSize="24sp"
             android:textStyle="bold"/>
 
 
         <EditText
-            android:id="@+id/txtUsuarioRegistrar"
+            android:id="@+id/txtClienNombres"
             android:layout_width="300dp"
             android:layout_height="50dp"
             android:layout_margin="10dp"
             android:background="@drawable/rounded_corners"
-            android:drawableLeft="@drawable/ic_person"
             android:ems="20"
             android:fontFamily="@font/nexa_light"
-            android:hint="  Usuario"
+            android:hint="  Nombres completos"
             android:inputType="text"
             android:padding="10dp"
             android:textColor="@color/darkblue"
             android:textColorHint="@color/blue" />
 
-
         <EditText
-            android:id="@+id/txtContraRegistrar"
+            android:id="@+id/txtClienApellidos"
             android:layout_width="300dp"
             android:layout_height="50dp"
             android:layout_margin="10dp"
             android:background="@drawable/rounded_corners"
-            android:drawableLeft="@drawable/ic_lock"
-            android:ems="10"
+            android:ems="20"
             android:fontFamily="@font/nexa_light"
-            android:hint="  Contraseña"
-            android:inputType="textPassword"
+            android:hint="  Apellidos Completos"
+            android:inputType="text"
             android:padding="10dp"
             android:textColor="@color/darkblue"
             android:textColorHint="@color/blue" />
 
         <EditText
-            android:id="@+id/txtUsuaId"
+            android:id="@+id/txtClienDni"
+            android:layout_width="300dp"
+            android:layout_height="50dp"
+            android:layout_margin="10dp"
+            android:background="@drawable/rounded_corners"
+            android:ems="20"
+            android:fontFamily="@font/nexa_light"
+            android:hint="  DNI"
+            android:inputType="number"
+            android:maxLength="8"
+            android:padding="10dp"
+            android:textColor="@color/darkblue"
+            android:textColorHint="@color/blue" />
+
+        <EditText
+            android:id="@+id/txtClienCelular"
+            android:layout_width="300dp"
+            android:layout_height="50dp"
+            android:layout_margin="10dp"
+            android:background="@drawable/rounded_corners"
+            android:ems="20"
+            android:fontFamily="@font/nexa_light"
+            android:hint="  Celular"
+            android:inputType="phone"
+            android:maxLength="9"
+            android:padding="10dp"
+            android:textColor="@color/darkblue"
+            android:textColorHint="@color/blue" />
+
+        <EditText
+            android:id="@+id/txtClienCorreo"
+            android:layout_width="300dp"
+            android:layout_height="50dp"
+            android:layout_margin="10dp"
+            android:background="@drawable/rounded_corners"
+            android:ems="20"
+            android:fontFamily="@font/nexa_light"
+            android:hint="  Correo Electronico"
+            android:inputType="textEmailAddress"
+            android:padding="10dp"
+            android:textColor="@color/darkblue"
+            android:textColorHint="@color/blue" />
+
+        <EditText
+            android:id="@+id/txtClienDireccion"
+            android:layout_width="300dp"
+            android:layout_height="50dp"
+            android:layout_margin="10dp"
+            android:background="@drawable/rounded_corners"
+            android:ems="20"
+            android:fontFamily="@font/nexa_light"
+            android:hint="  Dirección de su domicilio"
+            android:inputType="textPostalAddress"
+            android:padding="10dp"
+            android:textColor="@color/darkblue"
+            android:textColorHint="@color/blue" />
+
+
+        <EditText
             android:visibility="gone"
             android:layout_width="300dp"
             android:layout_height="50dp"
@@ -101,9 +148,8 @@
             android:padding="10dp"
             android:textColor="@color/darkblue"
             android:textColorHint="@color/blue" />
-
         <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btnRegistrarUsuario"
+            android:id="@+id/btnRegistrarCliente"
             android:layout_width="302dp"
             android:layout_height="50dp"
             android:layout_marginTop="40dp"
@@ -111,12 +157,8 @@
             android:fontFamily="@font/nexa_light"
             android:foreground="?attr/selectableItemBackgroundBorderless"
             android:gravity="center"
-            android:onClick="registrarUsuario"
-            android:text="Siguiente"
+            android:onClick="registrarCliente"
+            android:text="Crear cuenta"
             android:textColor="@color/black" />
-
-
-
     </LinearLayout>
-
 </LinearLayout>

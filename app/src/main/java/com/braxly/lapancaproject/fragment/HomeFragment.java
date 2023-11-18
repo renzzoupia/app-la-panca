@@ -3,15 +3,18 @@ package com.braxly.lapancaproject.fragment;
 import static com.android.volley.VolleyLog.TAG;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
@@ -46,11 +49,12 @@ import java.util.Map;
 public class HomeFragment extends Fragment {
     FloatingActionButton agregar;
     private List<Producto> productos; //agregacion
+    private List<Producto> listaFiltrada;
     private RequestQueue requestQueue;
     private ProductoAdapterRecycler productoAdapterRecycler;
     private RecyclerView recyclerViewProducto;
     private TextView pasarVistaReserva;
-
+    private String tipoFiltrado = "";
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -60,6 +64,7 @@ public class HomeFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_home, container, false);
         iniciarRecyclerViewProductos(rootView);
         pasarVistaDeLaReserva(rootView);
+        btnFiltrarPollo(rootView);
         /*TextView textView = rootView.findViewById(R.id.txtReservaAhora);
         textView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -83,6 +88,9 @@ public class HomeFragment extends Fragment {
     }
 */
     private void iniciarRecyclerViewProductos(View rootView) {
+
+
+        listaFiltrada = new ArrayList<>();
         productos = new ArrayList<>();
         recyclerViewProducto = rootView.findViewById(R.id.recyclerProductos);
         recyclerViewProducto.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
@@ -104,10 +112,9 @@ public class HomeFragment extends Fragment {
     private void cargarListaProductos() {
         requestQueue = Volley.newRequestQueue(requireContext());
 
-        String url = Uri.parse(ConexionApi.URL_BASE + "/producto")
+        String url = Uri.parse(ConexionApi.URL_BASE + "producto")
                 .buildUpon()
                 .build().toString();
-
         JsonObjectRequest requerimiento = new JsonObjectRequest(Request.Method.GET,
                 url, null,
                 new Response.Listener<JSONObject>() {
@@ -118,7 +125,7 @@ public class HomeFragment extends Fragment {
 
                             int totalRegistros = response.getInt("Total de registros");
 
-                            for (int i = 0; i < totalRegistros; i++) {
+                           for (int i = 0; i < totalRegistros; i++) {
 
                                 String valor = response.get("Detalles").toString();
                                 JSONArray arreglo = new JSONArray(valor);
@@ -135,10 +142,13 @@ public class HomeFragment extends Fragment {
                                 // Toast.makeText(getApplicationContext(), "hola", Toast.LENGTH_SHORT).show();
 
                                 Producto producto = new Producto(prodId, prodTiprId, tiprNombre, prodNombre, prodDescripcion, prodStock, prodPrecio, prodFoto);
-
+                                ///String tipoEspecifico = "1";
+                                //if (producto.getProdId().equals(tipoEspecifico)) {
                                 productos.add(producto);
+                                //
                                 productoAdapterRecycler.notifyItemRangeInserted(productos.size(), 1);
                             }
+
                         } catch (JSONException e) {
                             throw new RuntimeException(e);
                         }
@@ -161,19 +171,108 @@ public class HomeFragment extends Fragment {
         };
 
         requestQueue.add(requerimiento);
-    }
+        }
 
     public void pasarVistaDeLaReserva(View rootView) {
         pasarVistaReserva = rootView.findViewById(R.id.txtReservaAhora);
         pasarVistaReserva.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(requireActivity(), EleccionMesaActivity.class);
-                startActivity(i);
-                Toast.makeText(getActivity(), "Se hizo clic en el TextView", Toast.LENGTH_SHORT).show();
+                filtrar();
+                /*Intent i = new Intent(requireActivity(), EleccionMesaActivity.class);
+                startActivity(i);*/
+
             }
         });
+    }
 
+    public void btnFiltrarPollo(View rootView) {
+        ConstraintLayout constraintLayout = rootView.findViewById(R.id.btnFiltrarPollos);
+        final boolean[] activado = {false};
+        constraintLayout.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                switch (motionEvent.getAction()) {
+                    case MotionEvent.ACTION_DOWN:
+                        if (!activado[0]) {
+                            // Cambiar el color del fondo al presionar solo si está desactivado
+                            constraintLayout.setBackgroundColor(R.drawable.category_background); // Color naranja
+                            Toast.makeText(requireContext(), "Hola estas activado", Toast.LENGTH_SHORT).show();
+                            tipoFiltrado = "1"; // Cambiar a tu tipo específico de producto
+
+                            // Filtrar la lista y actualizar el RecyclerView
+                            filtrarProductosPorTipo(tipoFiltrado);
+                        }
+                        return true;
+
+                    case MotionEvent.ACTION_UP:
+                        if (activado[0]) {
+                            // Si ya estaba activado, desactivar y restaurar el color original
+                            constraintLayout.setBackgroundColor(R.drawable.background_selector); // Color original (blanco en este caso)
+                            Toast.makeText(requireContext(), "Constraint layout desactivado", Toast.LENGTH_SHORT).show();
+                            activado[0] = false;
+                        } else if (!activado[0]) {
+                            // Si no estaba activado y se levanta el dedo, activar y mantener el color naranja
+                            constraintLayout.setBackgroundColor(R.drawable.category_background); // Color naranja
+                            activado[0] = true;
+                        }
+                        return true;
+                }
+                return false;
+            }
+        });
+    }
+
+    public void btnFiltrarRefrescos(View rootView) {
+        ConstraintLayout constraintLayout = rootView.findViewById(R.id.btnFiltrarPollos);
+        final boolean[] activado = {false};
+        constraintLayout.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                switch (motionEvent.getAction()) {
+                    case MotionEvent.ACTION_DOWN:
+                        if (!activado[0]) {
+                            // Cambiar el color del fondo al presionar solo si está desactivado
+                            constraintLayout.setBackgroundColor(R.drawable.category_background); // Color naranja
+                            Toast.makeText(requireContext(), "Hola estas activado", Toast.LENGTH_SHORT).show();
+                            tipoFiltrado = "1"; // Cambiar a tu tipo específico de producto
+
+                            // Filtrar la lista y actualizar el RecyclerView
+                            filtrarProductosPorTipo(tipoFiltrado);
+                        }
+                        return true;
+
+                    case MotionEvent.ACTION_UP:
+                        if (activado[0]) {
+                            // Si ya estaba activado, desactivar y restaurar el color original
+                            constraintLayout.setBackgroundColor(R.drawable.background_selector); // Color original (blanco en este caso)
+                            Toast.makeText(requireContext(), "Constraint layout desactivado", Toast.LENGTH_SHORT).show();
+                            activado[0] = false;
+                        } else if (!activado[0]) {
+                            // Si no estaba activado y se levanta el dedo, activar y mantener el color naranja
+                            constraintLayout.setBackgroundColor(R.drawable.category_background); // Color naranja
+                            activado[0] = true;
+                        }
+                        return true;
+                }
+                return false;
+            }
+        });
+    }
+    public void filtrar(){
+        tipoFiltrado = "1"; // Cambiar a tu tipo específico de producto
+
+        // Filtrar la lista y actualizar el RecyclerView
+        filtrarProductosPorTipo(tipoFiltrado);
+    }
+    private void filtrarProductosPorTipo(String tipo) {
+        ArrayList<Producto> productosFiltrados = new ArrayList<>();
+        for (Producto producto : productos) {
+            if (producto.getProdTiprId().equals(tipo)) {
+                productosFiltrados.add(producto);
+            }
+        }
+        productoAdapterRecycler.filtrar(productosFiltrados);
     }
 
 }

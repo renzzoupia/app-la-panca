@@ -7,11 +7,22 @@
     android:background="#f3f3f3"
     tools:context=".activity.CartaActivity">
 
+    <ImageView
+        android:id="@+id/backBtn2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:padding="2dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/arrow" />
+
     <TextView
         android:id="@+id/emptyTxt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Tu carta esta vacia"
+        android:gravity="center"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -42,6 +53,7 @@
                     android:id="@+id/backBtn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:onClick="regresarVista"
                     android:padding="2dp"
                     app:srcCompat="@drawable/arrow" />
 
@@ -50,7 +62,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="My Cart"
+                    android:text="Mi Carta"
                     android:textAlignment="center"
                     android:textColor="@color/black"
                     android:textSize="25sp"
@@ -68,7 +80,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:text="Order Summary"
+                android:text="Resumen del Orden"
                 android:textColor="@color/black"
                 android:textSize="18sp"
                 android:textStyle="bold" />
@@ -172,7 +184,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:text="Information"
+                android:text="Información"
                 android:textColor="@color/black"
                 android:textSize="18sp"
                 android:textStyle="bold" />
@@ -189,7 +201,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
                     android:layout_marginTop="8dp"
-                    android:text="Your Delivery Address"
+                    android:text="Direccion de entrega"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -200,7 +212,7 @@
                     android:layout_marginTop="8dp"
                     app:layout_constraintStart_toStartOf="@+id/textView23"
                     app:layout_constraintTop_toBottomOf="@+id/textView23"
-                    app:srcCompat="@drawable/location_xml" />
+                    app:srcCompat="@drawable/location" />
 
                 <TextView
                     android:id="@+id/textView24"
@@ -208,7 +220,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
-                    android:text="NY-download-no97"
+                    android:text="Psj. Iquitos 375"
                     app:layout_constraintBottom_toBottomOf="@+id/imageView10"
                     app:layout_constraintStart_toEndOf="@+id/imageView10"
                     app:layout_constraintTop_toTopOf="@+id/imageView10" />
@@ -238,7 +250,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
-                    android:text="Payment Method"
+                    android:text="Método de pago"
                     app:layout_constraintStart_toStartOf="@+id/view5"
                     app:layout_constraintTop_toBottomOf="@+id/view5" />
 
@@ -257,7 +269,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
-                    android:text="Cash"
+                    android:text="Tarjeta"
                     app:layout_constraintBottom_toBottomOf="@+id/imageView12"
                     app:layout_constraintStart_toEndOf="@+id/imageView12"
                     app:layout_constraintTop_toTopOf="@+id/imageView12" />

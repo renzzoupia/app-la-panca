@@ -41,8 +41,8 @@ public class MesaAdapterRecycler extends RecyclerView.Adapter<MesaAdapterRecycle
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder,@SuppressLint("RecyclerView") int position) {
         holder.NameMesa.setText(mesa.get(position).getMesaNumero());
-        holder.cantidadPersonas.setText(mesa.get(position).getMesaCantidadPersonas());
-        holder.statusMesa.setText(mesa.get(position).getMesaActivo());
+        holder.cantidadPersonas.setText("Para " + mesa.get(position).getMesaCantidadPersonas() + " personas");
+        holder.statusMesa.setText("Activo");
         holder.relativeLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

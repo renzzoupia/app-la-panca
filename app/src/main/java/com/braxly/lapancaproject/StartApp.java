@@ -3,9 +3,11 @@ package com.braxly.lapancaproject;
 import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.TextView;
 
 import com.braxly.lapancaproject.activity.LoginActivity;
 import com.braxly.lapancaproject.activity.MainActivity;
+import com.braxly.lapancaproject.conexionApi.ConexionApi;
 
 public class StartApp extends AppCompatActivity {
 
@@ -38,4 +40,5 @@ public class StartApp extends AppCompatActivity {
         super.onPause();
         finish();
     }
+
 }

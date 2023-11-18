@@ -1,6 +1,8 @@
 package com.braxly.lapancaproject.models;
 
-public class Reserva {
+import java.io.Serializable;
+
+public class Reserva implements Serializable {
     private String reseId;
     private String reseMesaId;
     private String reseClieId;

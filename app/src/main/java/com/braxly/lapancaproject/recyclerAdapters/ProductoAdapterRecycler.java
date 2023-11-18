@@ -22,6 +22,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.GranularRoundedCorners;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 public class ProductoAdapterRecycler extends RecyclerView.Adapter<ProductoAdapterRecycler.ViewHolder> {
@@ -61,7 +62,11 @@ public class ProductoAdapterRecycler extends RecyclerView.Adapter<ProductoAdapte
             }
         });
     }
-
+    public void filtrar(ArrayList<Producto> listaFiltrada) {
+        producto.clear();
+        producto.addAll(listaFiltrada);
+        notifyDataSetChanged();
+    }
     @Override
     public int getItemCount() {
         return producto.size();

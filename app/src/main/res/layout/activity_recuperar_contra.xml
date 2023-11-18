@@ -1,13 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:orientation="vertical"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     android:background="@color/orange_light"
-    tools:context=".activity.RegistrarPersonaActivity">
+    tools:context=".activity.RecuperarContraActivity">
+    <LinearLayout
+        android:layout_width="70dp"
+        android:layout_height="80dp"
+        android:background="@color/orange_light"
+        android:gravity="bottom"
+        android:orientation="horizontal">
+
+        <ImageButton
+            android:id="@+id/go_back"
+            android:layout_width="0dp"
+            android:background="@color/orange_light"
+            android:layout_height="50dp"
+            android:layout_weight="1"
+            app:srcCompat="@drawable/ic_arrow_back" />
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -16,41 +30,47 @@
         android:gravity="center_horizontal"
         android:orientation="vertical">
 
-
-        <TextView
-            android:id="@+id/textView2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="TextView" />
-
         <ImageView
             android:id="@+id/imageView"
             android:layout_width="204dp"
             android:layout_height="154dp"
-            android:layout_marginTop="80dp"
             android:layout_marginBottom="5dp"
             app:srcCompat="@drawable/logo_la_panca" />
 
+        <TextView
+            android:id="@+id/textRegistrar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+
+            android:clickable="true"
+            android:focusable="true"
+            android:fontFamily="@font/nexa_light"
+            android:gravity="center"
+            android:text="Ingrese su correo para recuperar contraseña"
+            android:textColor="@color/light"
+            android:textSize="24sp"
+            android:textStyle="bold"/>
         <EditText
-            android:id="@+id/txtUsuario"
+            android:id="@+id/txtCorreoRecuperar"
             android:layout_width="300dp"
             android:layout_height="50dp"
             android:layout_margin="10dp"
             android:background="@drawable/rounded_corners"
-            android:drawableLeft="@drawable/ic_person"
             android:ems="20"
             android:fontFamily="@font/nexa_light"
-            android:hint="  Usuario"
+            android:hint="  Correo electronico"
             android:inputType="text"
             android:padding="10dp"
             android:textColor="@color/darkblue"
             android:textColorHint="@color/blue" />
 
         <EditText
-            android:id="@+id/txtContra"
+            android:id="@+id/txtUsuaId"
+            android:visibility="gone"
             android:layout_width="300dp"
             android:layout_height="50dp"
-            android:layout_margin="15dp"
+            android:layout_margin="10dp"
             android:background="@drawable/rounded_corners"
             android:drawableLeft="@drawable/ic_lock"
             android:ems="10"
@@ -61,9 +81,8 @@
             android:textColor="@color/darkblue"
             android:textColorHint="@color/blue" />
 
-
-        <Button
-            android:id="@+id/btnLogear"
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnRegistrarUsuario"
             android:layout_width="302dp"
             android:layout_height="50dp"
             android:layout_marginTop="40dp"
@@ -71,12 +90,11 @@
             android:fontFamily="@font/nexa_light"
             android:foreground="?attr/selectableItemBackgroundBorderless"
             android:gravity="center"
-            android:onClick="iniciarSesion"
-            android:text="Iniciar Sesión"
-            android:textColor="@color/light" />
+            android:onClick="buscarCorreo"
+            android:text="Buscar cuenta"
+            android:textColor="@color/black" />
+
 
 
     </LinearLayout>
-
-
 </LinearLayout>
