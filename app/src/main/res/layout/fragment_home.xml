@@ -42,7 +42,7 @@
                     android:drawableStart="@drawable/search"
                     android:drawablePadding="8dp"
                     android:ems="10"
-                    android:hint="Search Food, Drink, etc"
+                    android:hint="Buscar comida, bebidas, etc"
                     android:inputType="textPersonName"
                     android:padding="8dp"
                     android:textSize="15sp" />
@@ -55,12 +55,7 @@
                     android:layout_marginBottom="8dp"
                     android:background="@color/grey" />
 
-                <ImageView
-                    android:id="@+id/imageView7"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="8dp"
-                    app:srcCompat="@drawable/settings" />
+
 
             </LinearLayout>
 
@@ -124,18 +119,18 @@
                         <ImageView
                             android:id="@+id/btnFiltrar"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_height="60sp"
                             android:layout_margin="10dp"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
-                            app:srcCompat="@drawable/btn_1" />
+                            app:srcCompat="@drawable/chicken" />
 
                         <TextView
                             android:id="@+id/textView8"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Pizza"
+                            android:text="Pollos"
                             android:textColor="@color/black"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="@+id/btnFiltrar"
@@ -155,18 +150,19 @@
                         <ImageView
                             android:id="@+id/btnFiltrar"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_height="65sp"
                             android:layout_margin="10dp"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
-                            app:srcCompat="@drawable/btn_2" />
+                            app:srcCompat="@drawable/refresco" />
 
                         <TextView
                             android:id="@+id/textView8"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Burger"
+                            android:text="Refrescos"
+                            android:textSize="12sp"
                             android:textColor="@color/black"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="@+id/btnFiltrar"
@@ -186,18 +182,18 @@
                         <ImageView
                             android:id="@+id/btnFiltrar"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_height="60sp"
                             android:layout_margin="10dp"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
-                            app:srcCompat="@drawable/btn_3" />
+                            app:srcCompat="@drawable/agua" />
 
                         <TextView
                             android:id="@+id/textView8"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Chicken"
+                            android:text="Aguas"
                             android:textColor="@color/black"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="@+id/btnFiltrar"
@@ -217,18 +213,18 @@
                         <ImageView
                             android:id="@+id/btnFiltrar"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_height="60sp"
                             android:layout_margin="10dp"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
-                            app:srcCompat="@drawable/btn_4" />
+                            app:srcCompat="@drawable/soda" />
 
                         <TextView
                             android:id="@+id/textView8"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Hotdog"
+                            android:text="Gaseosas"
                             android:textColor="@color/black"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="@+id/btnFiltrar"

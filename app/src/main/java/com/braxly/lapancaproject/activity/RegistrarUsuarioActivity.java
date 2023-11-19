@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
@@ -29,6 +30,7 @@ import java.util.Map;
 
 public class RegistrarUsuarioActivity extends AppCompatActivity {
     private EditText usuarioTxt, contrasenaTxt, usuaIdTxt;
+    private ImageButton goBackBtn;
     RequestQueue requestQueue;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +38,7 @@ public class RegistrarUsuarioActivity extends AppCompatActivity {
         setContentView(R.layout.activity_registrar_usuario);
         iniciarActivity();
         ola();
+        regresarInicio();
     }
 
     private void iniciarActivity(){
@@ -43,7 +46,16 @@ public class RegistrarUsuarioActivity extends AppCompatActivity {
         contrasenaTxt = findViewById(R.id.txtContraRegistrar);
         usuaIdTxt = findViewById(R.id.txtUsuaId);
 
+        goBackBtn = findViewById(R.id.go_back);
+
         requestQueue = Volley.newRequestQueue(getApplicationContext());
+    }
+    private void regresarInicio(){
+        goBackBtn.setOnClickListener(view -> {
+            Intent i = new Intent(getApplicationContext(), LoginActivity.class);
+
+            startActivity(i);
+        });
     }
 private void ola(){
     Button button= (Button) findViewById(R.id.btnRegistrarUsuario);
@@ -78,13 +90,10 @@ private void ola(){
                             // Obtén el valor de "usua_id" del objeto "credenciales"
                             usuaId = credencialesObject.getString("usua_id");
 
-                            //usuaIdTxt.setText(usuaId);
-
-                            Toast.makeText(getApplicationContext(), usuaId, Toast.LENGTH_SHORT).show();
-
-                            Intent i = new Intent(getApplicationContext(), RegistrarClienteActivity.class);
-                            i.putExtra("usuaId", usuaId);
-                            startActivity(i);
+                            Intent intentRegistrar = new Intent(getApplicationContext(), RegistrarClienteActivity.class);
+                            intentRegistrar .putExtra("MODO", "MODIFICACION");
+                            intentRegistrar.putExtra("usuaId", usuaId);
+                            startActivity(intentRegistrar );
 
 
                         } catch (JSONException e) {

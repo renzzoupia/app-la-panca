@@ -2,7 +2,9 @@ package com.braxly.lapancaproject.fragment;
 
 import static com.android.volley.VolleyLog.TAG;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
@@ -31,6 +33,7 @@ import com.android.volley.toolbox.Volley;
 import com.braxly.lapancaproject.R;
 import com.braxly.lapancaproject.activity.CartaActivity;
 import com.braxly.lapancaproject.activity.EleccionMesaActivity;
+import com.braxly.lapancaproject.activity.LoginActivity;
 import com.braxly.lapancaproject.activity.MainActivity;
 import com.braxly.lapancaproject.conexionApi.ConexionApi;
 import com.braxly.lapancaproject.models.Producto;
@@ -49,7 +52,6 @@ import java.util.Map;
 public class HomeFragment extends Fragment {
     FloatingActionButton agregar;
     private List<Producto> productos; //agregacion
-    private List<Producto> listaFiltrada;
     private RequestQueue requestQueue;
     private ProductoAdapterRecycler productoAdapterRecycler;
     private RecyclerView recyclerViewProducto;
@@ -58,13 +60,14 @@ public class HomeFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        //return inflater.inflate(R.layout.fragment_home, container, false);
 
         View rootView = inflater.inflate(R.layout.fragment_home, container, false);
         iniciarRecyclerViewProductos(rootView);
         pasarVistaDeLaReserva(rootView);
-        btnFiltrarPollo(rootView);
+        accionFiltrarPollo(rootView);
+        accionFiltrarRefrescos(rootView);
+        accionFiltrarGaseosas(rootView);
+        accionFiltrarAguaMineral(rootView);
         /*TextView textView = rootView.findViewById(R.id.txtReservaAhora);
         textView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -78,20 +81,12 @@ public class HomeFragment extends Fragment {
         //bottomNavigation(rootView);
         return rootView;
     }
-    /*private void bottomNavigation(View rootView) {
-        LinearLayout HomeBtn = rootView.findViewById(R.id.homeBtn);
-        LinearLayout CartBtn = rootView.findViewById(R.id.cartBtn);
-
-        HomeBtn.setOnClickListener(v -> startActivity(new Intent(getActivity(), CartaActivity.class)));
-
-        CartBtn.setOnClickListener(v -> startActivity(new Intent(getActivity(), CartaActivity.class)));
-    }
-*/
     private void iniciarRecyclerViewProductos(View rootView) {
 
+        //listaFiltrada = new ArrayList<>();
 
-        listaFiltrada = new ArrayList<>();
         productos = new ArrayList<>();
+
         recyclerViewProducto = rootView.findViewById(R.id.recyclerProductos);
         recyclerViewProducto.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
         productoAdapterRecycler = new ProductoAdapterRecycler(productos);
@@ -103,8 +98,18 @@ public class HomeFragment extends Fragment {
         agregar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent vistaSaltar = new Intent(requireContext(), CartaActivity.class);
-                startActivity(vistaSaltar);
+                SharedPreferences preferences = requireContext().getSharedPreferences("Credenciales", Context.MODE_PRIVATE);
+                String clieIdRecibido = preferences.getString("clieId", "No existe la información");
+
+                if(clieIdRecibido.equals("No existe la información")){
+                    Toast.makeText(requireContext(), "Debes iniciar sesión", Toast.LENGTH_SHORT).show();
+                    Intent i = new Intent(requireActivity(), LoginActivity.class);
+                    startActivity(i);
+                }else{
+                    Intent vistaSaltar = new Intent(requireContext(), CartaActivity.class);
+                    startActivity(vistaSaltar);
+                }
+
             }
         });
     }
@@ -146,7 +151,7 @@ public class HomeFragment extends Fragment {
                                 //if (producto.getProdId().equals(tipoEspecifico)) {
                                 productos.add(producto);
                                 //
-                                productoAdapterRecycler.notifyItemRangeInserted(productos.size(), 1);
+                                productoAdapterRecycler.notifyItemRangeInserted(productos.size(),1);
                             }
 
                         } catch (JSONException e) {
@@ -178,15 +183,23 @@ public class HomeFragment extends Fragment {
         pasarVistaReserva.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                filtrar();
-                /*Intent i = new Intent(requireActivity(), EleccionMesaActivity.class);
-                startActivity(i);*/
+                SharedPreferences preferences = requireContext().getSharedPreferences("Credenciales", Context.MODE_PRIVATE);
+                String clieIdRecibido = preferences.getString("clieId", "No existe la información");
+
+                if(clieIdRecibido.equals("No existe la información")){
+                    Toast.makeText(requireContext(), "Debes iniciar sesión", Toast.LENGTH_SHORT).show();
+                    Intent i = new Intent(requireActivity(), LoginActivity.class);
+                    startActivity(i);
+                }else{
+                    Intent vistaSaltar = new Intent(requireContext(), EleccionMesaActivity.class);
+                    startActivity(vistaSaltar);
+                }
 
             }
         });
     }
 
-    public void btnFiltrarPollo(View rootView) {
+    public void accionFiltrarPollo(View rootView) {
         ConstraintLayout constraintLayout = rootView.findViewById(R.id.btnFiltrarPollos);
         final boolean[] activado = {false};
         constraintLayout.setOnTouchListener(new View.OnTouchListener() {
@@ -196,24 +209,23 @@ public class HomeFragment extends Fragment {
                     case MotionEvent.ACTION_DOWN:
                         if (!activado[0]) {
                             // Cambiar el color del fondo al presionar solo si está desactivado
-                            constraintLayout.setBackgroundColor(R.drawable.category_background); // Color naranja
-                            Toast.makeText(requireContext(), "Hola estas activado", Toast.LENGTH_SHORT).show();
-                            tipoFiltrado = "1"; // Cambiar a tu tipo específico de producto
 
-                            // Filtrar la lista y actualizar el RecyclerView
-                            filtrarProductosPorTipo(tipoFiltrado);
+                            constraintLayout.setBackgroundResource(R.drawable.background_selector);
+
+                            filtrar("1");
                         }
                         return true;
 
                     case MotionEvent.ACTION_UP:
                         if (activado[0]) {
                             // Si ya estaba activado, desactivar y restaurar el color original
-                            constraintLayout.setBackgroundColor(R.drawable.background_selector); // Color original (blanco en este caso)
-                            Toast.makeText(requireContext(), "Constraint layout desactivado", Toast.LENGTH_SHORT).show();
+                            constraintLayout.setBackgroundResource(R.drawable.category_background); // Color original (blanco en este caso)
+
+                            actualizarListaProductos();
                             activado[0] = false;
                         } else if (!activado[0]) {
                             // Si no estaba activado y se levanta el dedo, activar y mantener el color naranja
-                            constraintLayout.setBackgroundColor(R.drawable.category_background); // Color naranja
+                            constraintLayout.setBackgroundResource(R.drawable.background_selector); // Color naranja
                             activado[0] = true;
                         }
                         return true;
@@ -223,8 +235,8 @@ public class HomeFragment extends Fragment {
         });
     }
 
-    public void btnFiltrarRefrescos(View rootView) {
-        ConstraintLayout constraintLayout = rootView.findViewById(R.id.btnFiltrarPollos);
+    public void accionFiltrarRefrescos(View rootView) {
+        ConstraintLayout constraintLayout = rootView.findViewById(R.id.btnFiltrarRefrescos);
         final boolean[] activado = {false};
         constraintLayout.setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -233,24 +245,22 @@ public class HomeFragment extends Fragment {
                     case MotionEvent.ACTION_DOWN:
                         if (!activado[0]) {
                             // Cambiar el color del fondo al presionar solo si está desactivado
-                            constraintLayout.setBackgroundColor(R.drawable.category_background); // Color naranja
-                            Toast.makeText(requireContext(), "Hola estas activado", Toast.LENGTH_SHORT).show();
-                            tipoFiltrado = "1"; // Cambiar a tu tipo específico de producto
+                            constraintLayout.setBackgroundResource(R.drawable.background_selector); // Color naranja
+                            filtrar("2");
 
-                            // Filtrar la lista y actualizar el RecyclerView
-                            filtrarProductosPorTipo(tipoFiltrado);
                         }
                         return true;
 
                     case MotionEvent.ACTION_UP:
                         if (activado[0]) {
                             // Si ya estaba activado, desactivar y restaurar el color original
-                            constraintLayout.setBackgroundColor(R.drawable.background_selector); // Color original (blanco en este caso)
-                            Toast.makeText(requireContext(), "Constraint layout desactivado", Toast.LENGTH_SHORT).show();
+                            constraintLayout.setBackgroundResource(R.drawable.category_background); // Color original (blanco en este caso)
+
+                            actualizarListaProductos();
                             activado[0] = false;
                         } else if (!activado[0]) {
                             // Si no estaba activado y se levanta el dedo, activar y mantener el color naranja
-                            constraintLayout.setBackgroundColor(R.drawable.category_background); // Color naranja
+                            constraintLayout.setBackgroundResource(R.drawable.background_selector); // Color naranja
                             activado[0] = true;
                         }
                         return true;
@@ -259,20 +269,92 @@ public class HomeFragment extends Fragment {
             }
         });
     }
-    public void filtrar(){
-        tipoFiltrado = "1"; // Cambiar a tu tipo específico de producto
 
+    public void accionFiltrarAguaMineral(View rootView) {
+        ConstraintLayout constraintLayout = rootView.findViewById(R.id.btnFiltrarAguaMineral);
+        final boolean[] activado = {false};
+        constraintLayout.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                switch (motionEvent.getAction()) {
+                    case MotionEvent.ACTION_DOWN:
+                        if (!activado[0]) {
+                            // Cambiar el color del fondo al presionar solo si está desactivado
+                            constraintLayout.setBackgroundResource(R.drawable.background_selector); // Color naranja
+                            filtrar("2");
+
+                        }
+                        return true;
+
+                    case MotionEvent.ACTION_UP:
+                        if (activado[0]) {
+                            // Si ya estaba activado, desactivar y restaurar el color original
+                            constraintLayout.setBackgroundResource(R.drawable.category_background); // Color original (blanco en este caso)
+
+                            actualizarListaProductos();
+                            activado[0] = false;
+                        } else if (!activado[0]) {
+                            // Si no estaba activado y se levanta el dedo, activar y mantener el color naranja
+                            constraintLayout.setBackgroundResource(R.drawable.background_selector); // Color naranja
+                            activado[0] = true;
+                        }
+                        return true;
+                }
+                return false;
+            }
+        });
+    }
+
+    public void accionFiltrarGaseosas(View rootView) {
+        ConstraintLayout constraintLayout = rootView.findViewById(R.id.btnFiltrarGaseosas);
+        final boolean[] activado = {false};
+        constraintLayout.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                switch (motionEvent.getAction()) {
+                    case MotionEvent.ACTION_DOWN:
+                        if (!activado[0]) {
+                            // Cambiar el color del fondo al presionar solo si está desactivado
+                            constraintLayout.setBackgroundResource(R.drawable.background_selector); // Color naranja
+                            filtrar("2");
+
+                        }
+                        return true;
+
+                    case MotionEvent.ACTION_UP:
+                        if (activado[0]) {
+                            // Si ya estaba activado, desactivar y restaurar el color original
+                            constraintLayout.setBackgroundResource(R.drawable.category_background); // Color original (blanco en este caso)
+
+                            actualizarListaProductos();
+                            activado[0] = false;
+                        } else if (!activado[0]) {
+                            // Si no estaba activado y se levanta el dedo, activar y mantener el color naranja
+                            constraintLayout.setBackgroundResource(R.drawable.background_selector); // Color naranja
+                            activado[0] = true;
+                        }
+                        return true;
+                }
+                return false;
+            }
+        });
+    }
+    private void filtrar(String filtrado){
+        tipoFiltrado = filtrado; // Cambiar a tu tipo específico de producto
         // Filtrar la lista y actualizar el RecyclerView
-        filtrarProductosPorTipo(tipoFiltrado);
+        filtrarProductosPorTipo(filtrado);
     }
     private void filtrarProductosPorTipo(String tipo) {
         ArrayList<Producto> productosFiltrados = new ArrayList<>();
         for (Producto producto : productos) {
-            if (producto.getProdTiprId().equals(tipo)) {
+            if (producto.getProdId().equals(tipo)) {
                 productosFiltrados.add(producto);
             }
         }
         productoAdapterRecycler.filtrar(productosFiltrados);
     }
-
+    private void actualizarListaProductos() {
+        productoAdapterRecycler.actualizarListaCompleta(productos);
+        cargarListaProductos();
+    }
 }

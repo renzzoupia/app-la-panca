@@ -26,6 +26,7 @@ android {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
     }
+
 }
 
 dependencies {
@@ -38,6 +39,9 @@ dependencies {
     implementation ("com.google.code.gson:gson:2.9.1") /* FORMATO JSON */
     implementation ("com.github.bumptech.glide:glide:4.12.0")/* MEJORA LAS IMAGENES*/
     implementation("com.google.android.gms:play-services-maps:18.2.0")
+
+    implementation ("com.sun.mail:android-mail:1.5.5")
+    implementation ("com.sun.mail:android-activation:1.5.5")
 
     testImplementation ("junit:junit:4.13.2")
     androidTestImplementation ("androidx.test.ext:junit:1.1.3")

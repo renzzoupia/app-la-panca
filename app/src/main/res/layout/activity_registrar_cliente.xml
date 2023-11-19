@@ -17,7 +17,7 @@
         android:orientation="horizontal">
 
         <ImageButton
-            android:id="@+id/go_back"
+            android:id="@+id/go_back_registrar_cliente"
             android:layout_width="0dp"
             android:background="@color/orange_light"
             android:layout_height="50dp"
@@ -32,8 +32,8 @@
         android:orientation="vertical">
 
 
-
         <TextView
+            android:id="@+id/txtTituloRegistrarModificar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
@@ -44,7 +44,7 @@
             android:text="Completa los datos finales"
             android:textColor="@color/light"
             android:textSize="24sp"
-            android:textStyle="bold"/>
+            android:textStyle="bold" />
 
 
         <EditText

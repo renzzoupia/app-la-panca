@@ -1,8 +1,6 @@
 package com.braxly.lapancaproject.recyclerAdapters;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
-import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,13 +13,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.braxly.lapancaproject.CambiarNumberoProductoLista;
 import com.braxly.lapancaproject.ManejarCarta;
 import com.braxly.lapancaproject.R;
-import com.braxly.lapancaproject.activity.ProductoDetallesActivity;
 import com.braxly.lapancaproject.models.Producto;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.GranularRoundedCorners;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class CartaAdapterRecycler extends RecyclerView.Adapter<CartaAdapterRecycler.ViewHolder>{
     ArrayList<Producto> listaProductoSelected;

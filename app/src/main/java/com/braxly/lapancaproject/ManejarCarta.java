@@ -57,12 +57,13 @@ public class ManejarCarta {
         cambiarNumberoProductoLista.changed();
     }
 
-    public Double getTotalFee(){
+    public Double getTotalPrecioCantidad(){
         ArrayList<Producto> listaProducto2 = obtenerCarrito();
-        double fee = 0;
+        double precioProductoCantidad = 0;
         for(int i = 0; i < listaProducto2.size(); i ++){
-            fee = fee + (listaProducto2.get(i).getProdPrecio() * listaProducto2.get(i).getNumberInCart());
+            precioProductoCantidad = precioProductoCantidad + (listaProducto2.get(i).getProdPrecio() * listaProducto2.get(i).getNumberInCart());
         }
-        return fee;
+        return precioProductoCantidad;
     }
+
 }

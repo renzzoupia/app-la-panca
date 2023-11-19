@@ -3,9 +3,12 @@ package com.braxly.lapancaproject.activity;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
+import com.braxly.lapancaproject.MailJob;
 import com.braxly.lapancaproject.conexionApi.ConexionApi;
 import com.braxly.lapancaproject.fragment.AboutFragment;
 import com.braxly.lapancaproject.fragment.ComprasFragment;
@@ -45,7 +48,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new HomeFragment()).commit();
             navigationView.setCheckedItem(R.id.nav_home);
         }
-        modificarHeader();
+        cargarPreferenciasModificarHeader();
+
     }
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -56,9 +60,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             case R.id.nav_reserve:
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new ReserveFragment()).commit();
                 break;
-            case R.id.nav_compra:
+            /*case R.id.nav_compra:
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new ComprasFragment()).commit();
-                break;
+                break;*/
             case R.id.nav_mi_profile:
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new ProfileFragment()).commit();
                 break;
@@ -70,15 +74,18 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new AboutFragment()).commit();
                 break;
             case R.id.nav_logout:
-                ConexionApi.clieUsuario ="";
-                ConexionApi.clieCorreo = "";
-                modificarHeader();
+                eliminarCredenciales();
+                cargarPreferenciasModificarHeader();
+                Intent pasarMensaje = new Intent(getApplicationContext(), MainActivity.class);
+                //activamos el  Intent
+                startActivity(pasarMensaje);
                 Toast.makeText(this, "Usted cerro sesión", Toast.LENGTH_SHORT).show();
                 break;
         }
         drawerLayout.closeDrawer(GravityCompat.START);
         return true;
     }
+
     @Override
     public void onBackPressed() {
         if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
@@ -87,23 +94,41 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             super.onBackPressed();
         }
     }
+    private void eliminarCredenciales(){
+        SharedPreferences.Editor editor = getSharedPreferences("Credenciales", MODE_PRIVATE).edit();
 
-    public void modificarHeader(){
+        // Remueve los datos que quieres eliminar (correo, id_cliente)
+        editor.remove("clieId");
+        editor.remove("usuaId");
+        editor.remove("clieDireccion");
+        editor.remove("clieCorreo");
+        editor.remove("usuaUsername");
+        editor.remove("clieNombres");
+        editor.remove("clieApellidos");
+
+        // Aplica los cambios
+        editor.apply();
+    }
+    private void cargarPreferenciasModificarHeader() {
         NavigationView navigationView = findViewById(R.id.nav_view);
         View headerView = navigationView.getHeaderView(0);
 
         TextView txtNombre = headerView.findViewById(R.id.txtNombreHeader);
         TextView txtCorreo = headerView.findViewById(R.id.txtCorreoClienteHeader);
-        String usuario = ConexionApi.clieUsuario;
-        String correo = ConexionApi.clieCorreo;
-        if (usuario.isEmpty() && correo.isEmpty()) {
+
+        SharedPreferences preferences = getSharedPreferences("Credenciales", Context.MODE_PRIVATE);
+
+        String clieCorreoRecibido = preferences.getString("clieCorreo", "No existe la información");
+        String usuaUsernameRecibido = preferences.getString("usuaUsername", "No existe la información");
+
+
+        if (clieCorreoRecibido.equals("No existe la información") && usuaUsernameRecibido.equals("No existe la información")) {
             txtNombre.setText("Usuario no registrado");
             txtCorreo.setText("");
         } else {
-            txtNombre.setText(usuario);
-            txtCorreo.setText(correo);
+            txtNombre.setText(usuaUsernameRecibido);
+            txtCorreo.setText(clieCorreoRecibido);
         }
-
     }
 
 }

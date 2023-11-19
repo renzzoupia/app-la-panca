@@ -47,7 +47,7 @@ public class MesaAdapterRecycler extends RecyclerView.Adapter<MesaAdapterRecycle
             @Override
             public void onClick(View view) {
 
-                Toast.makeText(view.getContext(),"Seleccionaste la mesa " + mesa.get(position).getMesaNumero(),Toast.LENGTH_LONG).show();
+                Toast.makeText(view.getContext(),"Seleccionaste la " + mesa.get(position).getMesaNumero(),Toast.LENGTH_LONG).show();
                 Intent intent = new Intent(holder.itemView.getContext(), ReservaActivity.class);
 
                 intent.putExtra("mesa", mesa.get(position));

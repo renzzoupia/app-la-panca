@@ -4,10 +4,12 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Base64;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
@@ -28,6 +30,7 @@ import java.util.Map;
 
 public class LoginActivity extends AppCompatActivity {
     private EditText txtUsername, txtPass;
+    ImageButton goBackBtn;
     private Context context;
     RequestQueue requestQueue;
 
@@ -37,14 +40,23 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
         iniciarLoginActivity();
+        regresarMain();
     }
     private void iniciarLoginActivity(){
         txtUsername = findViewById (R.id.txtUsuario);
         txtPass = findViewById(R.id.txtContra);
-
+        goBackBtn = findViewById(R.id.go_back);
         context = getApplicationContext();
 
         requestQueue = Volley.newRequestQueue(context);
+    }
+    private void regresarMain(){
+        goBackBtn.setOnClickListener(view ->
+        {
+            Intent pasarMensaje = new Intent(getApplicationContext(), MainActivity.class);
+            //activamos el  Intent
+            startActivity(pasarMensaje);
+        });
     }
     public void iniciarSesion2(View vista) {
 
@@ -72,20 +84,17 @@ public class LoginActivity extends AppCompatActivity {
 
                                 String clieId = datos.getString("clie_id");
 
+                                String usuaId = datos.getString("usua_id");
                                 String usuaUsername = datos.getString("usua_username");
-                                String usuaUserSecreto = datos.getString("usua_user_secreto");
                                 String usuaLlaveSecreta = datos.getString("usua_llave_secreta");
 
-                                String clieUsuario = datos.getString("usua_username");
+                                String clieDireccion = datos.getString("clie_direccion");
                                 String clieCorreo = datos.getString("clie_correo");
+                                String clieNombres = datos.getString("clie_nombres");
+                                String clieApellidos = datos.getString("clie_apellidos");
 
-                                //ConexionApi.userSecreto = usuaUserSecreto;
-                                //ConexionApi.llaveSecreta = usuaLlaveSecreta;
-                                ConexionApi.clieId = clieId;
-                                ConexionApi.clieUsuario = clieUsuario;
-                                ConexionApi.clieCorreo = clieCorreo;
+                                guardarPreferencias(clieId,usuaId,clieDireccion, clieCorreo, usuaUsername, clieNombres, clieApellidos);
 
-                                Toast.makeText(getApplicationContext(), "Bienvenido " + usuaUsername, Toast.LENGTH_SHORT).show();
                                 Intent pasarMainActivity = new Intent(context,MainActivity.class);
                                 //activamos el  Intent
                                 startActivity(pasarMainActivity);
@@ -120,6 +129,32 @@ public class LoginActivity extends AppCompatActivity {
 
         requestQueue.add(jsonObjectRequest);
 
+    }
+    private void guardarPreferencias(String clieId, String usuaId, String clieDireccion, String clieCorreo, String usuaUsername, String clieNombres, String clieApellidos){
+        SharedPreferences preferences = getSharedPreferences("Credenciales", Context.MODE_PRIVATE);
+
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putString("clieId", clieId);
+        editor.putString("usuaId", usuaId);
+        editor.putString("clieDireccion", clieDireccion);
+        editor.putString("clieCorreo", clieCorreo);
+        editor.putString("usuaUsername", usuaUsername);
+        editor.putString("clieNombres", clieNombres);
+        editor.putString("clieApellidos", clieApellidos);
+
+
+        editor.commit();
+    }
+
+    private void cargarPreferencias(){
+        SharedPreferences preferences = getSharedPreferences("Credenciales", Context.MODE_PRIVATE);
+        String clieIdRecibido = preferences.getString("clieId", "No existe la información");
+        String usuaIdRecibido = preferences.getString("usuaId", "No existe la información");
+        String clieDireccionRecibido = preferences.getString("clieDireccion", "No existe la información");
+        String clieCorreoRecibido = preferences.getString("clieCorreo", "No existe la información");
+        String usuaUsernameRecibido = preferences.getString("usuaUsername", "No existe la información");
+        String clieNombresRecibido = preferences.getString("clieNombres", "No existe la información");
+        String clieApellidosRecibido = preferences.getString("clieApellidos", "No existe la información");
     }
 
     public void pasarCrearCuenta(View vista){

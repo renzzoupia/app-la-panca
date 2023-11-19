@@ -16,16 +16,16 @@
             android:icon="@drawable/nav_reserve"
             android:title="Mis reservas"/>
 
-        <item
+      <!--  <item
             android:id="@+id/nav_compra"
             android:icon="@drawable/nav_shoping"
-            android:title="Mis Compras"/>
+            android:title="Mis Compras"/> -->
 
 
         <item
             android:id="@+id/nav_mi_profile"
             android:icon="@drawable/nav_profile"
-            android:title="Mi cuenta"/>
+            android:title="Mi perfil"/>
 
         <item
             android:id="@+id/nav_login"

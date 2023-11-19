@@ -4,8 +4,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
@@ -37,11 +39,13 @@ public class EleccionMesaActivity extends AppCompatActivity {
     private RequestQueue requestQueue;
     private RecyclerView mesaRecycler;
     private MesaAdapterRecycler mesaAdapterRecycler;
+    private TextView btnRegresarInicio;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_eleccion_mesa);
 
+        regresarInicio();
         iniciarActivity();
         cargarMesas();
     }
@@ -53,6 +57,13 @@ public class EleccionMesaActivity extends AppCompatActivity {
         mesaRecycler.setLayoutManager(new LinearLayoutManager(this));
         mesaAdapterRecycler = new MesaAdapterRecycler(this, mesas);
         mesaRecycler.setAdapter(mesaAdapterRecycler);
+    }
+    private void regresarInicio(){
+        btnRegresarInicio = findViewById(R.id.goback);
+        btnRegresarInicio.setOnClickListener(view -> {
+            Intent i = new Intent(getApplicationContext(), MainActivity.class);
+            startActivity(i);
+        });
     }
     private void cargarMesas() {
         String url = Uri.parse(ConexionApi.URL_BASE + "/mesa")
@@ -68,7 +79,7 @@ public class EleccionMesaActivity extends AppCompatActivity {
                         try {
 
                             int totalRegistros = response.getInt("Total de registros");
-                            Toast.makeText(getApplicationContext(), "es: " + totalRegistros, Toast.LENGTH_SHORT).show();
+
 
                             for (int i = 0; i < totalRegistros; i++) {
 

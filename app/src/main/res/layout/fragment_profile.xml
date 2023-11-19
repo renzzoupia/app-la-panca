@@ -34,14 +34,14 @@
         app:srcCompat="@drawable/profile_pp" />
 
     <TextView
-        android:id="@+id/email"
+        android:id="@+id/txtNombreCompleto"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="147dp"
         android:layout_marginTop="-20dp"
         android:layout_marginEnd="146dp"
         android:gravity="center"
-        android:textColor="#0C0101"
+        android:textColor="@color/white"
         android:text="Renzo Renato Upiachihua Panduro"
         android:textStyle="bold"
         android:textSize="18sp"
@@ -68,7 +68,7 @@
         android:id="@+id/profile_info"
         android:layout_width="394dp"
         android:layout_height="83dp"
-        android:layout_marginTop="76dp"
+        android:layout_marginTop="56dp"
         android:background="@android:color/transparent"
         android:drawableStart="@drawable/profile_personal"
         android:drawablePadding="3dp"
@@ -78,12 +78,13 @@
         android:textAllCaps="false"
         android:textSize="16sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/email" />
+        app:layout_constraintTop_toBottomOf="@+id/txtNombreCompleto" />
+
     <Button
         android:id="@+id/order_history_btn"
         android:layout_width="394dp"
         android:layout_height="83dp"
-        android:layout_marginTop="76dp"
+        android:layout_marginTop="28dp"
         android:background="@android:color/transparent"
         android:drawableStart="@drawable/location_xml"
         android:drawablePadding="3dp"
@@ -94,6 +95,23 @@
         android:textSize="16sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/profile_info" />
+
+
+
+    <Button
+        android:id="@+id/editarClienteBtn"
+
+        android:layout_width="258dp"
+        android:layout_height="54dp"
+        android:backgroundTint="@color/orange_light"
+        android:text="Editar perfil"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/order_history_btn"
+        app:layout_constraintVertical_bias="0.373" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

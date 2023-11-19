@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
@@ -29,18 +30,29 @@ public class RecuperarContraActivity extends AppCompatActivity {
     private EditText correoRecuperarTxt;
     private Context context;
     RequestQueue requestQueue;
+    private ImageButton goBackBtn;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recuperar_contra);
 
         iniciarActivity();
+        regresar();
     }
 
     private void iniciarActivity(){
         correoRecuperarTxt = findViewById(R.id.txtCorreoRecuperar);
+        goBackBtn = findViewById(R.id.go_back);
         context = getApplicationContext();
         requestQueue = Volley.newRequestQueue(context);
+    }
+
+    private void regresar(){
+        goBackBtn.setOnClickListener(view -> {
+            Intent pasarMensaje = new Intent(getApplicationContext(),LoginActivity.class);
+            //activamos el  Intent
+            startActivity(pasarMensaje);
+        });
     }
 
     public void buscarCorreo(View view){
@@ -67,7 +79,7 @@ public class RecuperarContraActivity extends AppCompatActivity {
 
                                 String usuaId = datos.getString("usua_id");
                                 String usuaUsernameRecuperado = datos.getString("usua_username");
-                                Toast.makeText(getApplicationContext(), usuaId, Toast.LENGTH_SHORT).show();
+
                                 Intent pasarMainActivity = new Intent(context,RestablecerContraActivity.class);
                                 pasarMainActivity.putExtra("usuaId", usuaId);
                                 pasarMainActivity.putExtra("usuaUsername", usuaUsernameRecuperado);

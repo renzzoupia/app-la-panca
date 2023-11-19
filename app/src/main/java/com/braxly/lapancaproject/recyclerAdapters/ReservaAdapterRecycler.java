@@ -12,8 +12,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.braxly.lapancaproject.R;
 import com.braxly.lapancaproject.models.Mesa;
+import com.braxly.lapancaproject.models.Producto;
 import com.braxly.lapancaproject.models.Reserva;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ReservaAdapterRecycler extends RecyclerView.Adapter<ReservaAdapterRecycler.MyViewHolder>{
@@ -46,7 +48,11 @@ public class ReservaAdapterRecycler extends RecyclerView.Adapter<ReservaAdapterR
     public int getItemCount() {
         return reserva.size();
     }
-
+    public void filtrar(ArrayList<Reserva> listaFiltrada) {
+        reserva.clear();
+        reserva.addAll(listaFiltrada);
+        notifyDataSetChanged();
+    }
     public class MyViewHolder extends RecyclerView.ViewHolder {
         TextView nameMesa, reservaFecha, reservaHora;
         RelativeLayout relativeLayout;

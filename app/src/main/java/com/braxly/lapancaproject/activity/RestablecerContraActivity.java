@@ -10,6 +10,7 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
@@ -31,9 +32,12 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class RestablecerContraActivity extends AppCompatActivity {
-    EditText contraRestablecer, contraRestablecerConfirmar, usuaIdRestablecerTxt, usernameRestablecerTxt;
+    private EditText contraRestablecer, contraRestablecerConfirmar, usuaIdRestablecerTxt, usernameRestablecerTxt;
     RequestQueue requestQueue;
-    Context context;
+    private Context context;
+    private ImageButton goBackBtn;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,12 +55,20 @@ public class RestablecerContraActivity extends AppCompatActivity {
     private void iniciarActivity(){
         contraRestablecer = findViewById(R.id.txtContraRestablecer);
         contraRestablecerConfirmar = findViewById(R.id.txtContraRestablecerConfirmar);
-
+        goBackBtn = findViewById(R.id.go_back);
         usuaIdRestablecerTxt = findViewById(R.id.txtUsuaIdRestablecer);
         usernameRestablecerTxt = findViewById(R.id.txtUsernameRestablecer);
 
         context = getApplicationContext();
         requestQueue = Volley.newRequestQueue(context);
+    }
+    private void regresar(){
+        goBackBtn.setOnClickListener(view ->
+        {
+            Intent pasarMensaje = new Intent(getApplicationContext(),RecuperarContraActivity.class);
+            //activamos el  Intent
+            startActivity(pasarMensaje);
+        });
     }
     private void coincidenContra(){
         TextWatcher textWatcher = new TextWatcher() {

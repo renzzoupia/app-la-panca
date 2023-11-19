@@ -215,7 +215,7 @@
                     app:srcCompat="@drawable/location" />
 
                 <TextView
-                    android:id="@+id/textView24"
+                    android:id="@+id/txtDireccionUsuario"
                     style="@style/textStyleBold"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -229,7 +229,7 @@
                     android:id="@+id/imageView11"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:layout_constraintBottom_toBottomOf="@+id/textView24"
+                    app:layout_constraintBottom_toBottomOf="@+id/txtDireccionUsuario"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="@+id/textView23"
                     app:srcCompat="@drawable/arrow_detail" />
@@ -243,7 +243,7 @@
                     android:background="@color/grey"
                     app:layout_constraintEnd_toEndOf="@+id/imageView11"
                     app:layout_constraintStart_toStartOf="@+id/imageView10"
-                    app:layout_constraintTop_toBottomOf="@+id/textView24" />
+                    app:layout_constraintTop_toBottomOf="@+id/txtDireccionUsuario" />
 
                 <TextView
                     android:id="@+id/textView25"
@@ -269,7 +269,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
-                    android:text="Tarjeta"
+                    android:text="Paga contra entrega"
                     app:layout_constraintBottom_toBottomOf="@+id/imageView12"
                     app:layout_constraintStart_toEndOf="@+id/imageView12"
                     app:layout_constraintTop_toTopOf="@+id/imageView12" />
@@ -293,7 +293,7 @@
                 android:layout_marginTop="16dp"
                 android:layout_marginBottom="16dp"
                 android:background="@drawable/green_button_background"
-                android:text="Add to cart"
+                android:text="Hacer pedido"
                 android:textColor="@color/white"
                 android:textSize="18sp" />
 

@@ -41,8 +41,8 @@
                 android:layout_marginTop="5dp"
                 android:background="@color/orange_light"
                 android:fontFamily="@font/nexa_bold"
-                android:text="title"
-                android:textColor="@color/blue"
+                android:text="Regresar"
+                android:textColor="@color/black"
                 android:textSize="20sp" />
 
         </LinearLayout>

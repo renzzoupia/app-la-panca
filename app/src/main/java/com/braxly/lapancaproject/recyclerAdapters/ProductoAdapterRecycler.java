@@ -67,6 +67,12 @@ public class ProductoAdapterRecycler extends RecyclerView.Adapter<ProductoAdapte
         producto.addAll(listaFiltrada);
         notifyDataSetChanged();
     }
+
+    public void actualizarListaCompleta(List<Producto> listaCompleta) {
+        producto.clear();
+        producto.addAll(listaCompleta);
+        notifyDataSetChanged();
+    }
     @Override
     public int getItemCount() {
         return producto.size();

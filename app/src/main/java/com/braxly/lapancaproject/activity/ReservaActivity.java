@@ -8,6 +8,7 @@ import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -61,11 +62,6 @@ public class ReservaActivity extends AppCompatActivity implements View.OnClickLi
         obtenerMesa();
     }
     private void iniciarActivity(){
-        //mesaId = findViewById(R.id.txtMesaId);
-        //recyclerMesaSelected = findViewById(R.id.recyclerMesaSelected);
-        //nameMesa = findViewById(R.id.txtNumMesa);
-        //cantidadPersonas = findViewById(R.id.txtReferenciaMesa);
-        //cantidadPersonas = findViewById(R.id.txtCantidadPersonasSelected);
         nameMesa = findViewById(R.id.txtNameMesaSelected);
         fechaReserva = findViewById(R.id.txtReservaFecha);
         horaReserva = findViewById(R.id.txtHoraReserva);
@@ -178,10 +174,12 @@ public class ReservaActivity extends AppCompatActivity implements View.OnClickLi
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
 
+                SharedPreferences preferences = getSharedPreferences("Credenciales", Context.MODE_PRIVATE);
+                String clieIdRecibido = preferences.getString("clieId", "No existe la información");
                 Map<String,String> parametros = new HashMap<>();
 
                 parametros.put("rese_mesa_id", mesaId);
-                parametros.put("rese_clie_id", "4");
+                parametros.put("rese_clie_id", clieIdRecibido);
                 parametros.put("rese_fecha", fechaReserva.getText().toString());
                 parametros.put("rese_hora", horaReserva.getText().toString());
                 parametros.put("rese_personas", personaCantidad.getText().toString());

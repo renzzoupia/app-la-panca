@@ -10,9 +10,10 @@ public class Cliente implements Serializable {
     private String clieDni;
     private String clieCelular;
     private String clieCorreo;
+    private String clieDireccion;
 
 
-    public Cliente(String clieId, String clieUsuaId, String clieNombres, String clieApellidos, String clieDni, String clieCelular, String clieCorreo) {
+    public Cliente(String clieId, String clieUsuaId, String clieNombres, String clieApellidos, String clieDni, String clieCelular, String clieCorreo, String clieDireccion) {
         this.clieId = clieId;
         this.clieUsuaId = clieUsuaId;
         this.clieNombres = clieNombres;
@@ -20,6 +21,7 @@ public class Cliente implements Serializable {
         this.clieDni = clieDni;
         this.clieCelular = clieCelular;
         this.clieCorreo = clieCorreo;
+        this.clieDireccion = clieDireccion;
     }
 
     public String getClieId() {
@@ -50,4 +52,7 @@ public class Cliente implements Serializable {
         return clieCorreo;
     }
 
+    public String getClieDireccion() {
+        return clieDireccion;
+    }
 }
