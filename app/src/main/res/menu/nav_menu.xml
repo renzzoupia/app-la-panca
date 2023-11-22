@@ -11,6 +11,7 @@
             android:id="@+id/nav_home"
             android:icon="@drawable/nav_home"
             android:title="Inicio"/>
+        
         <item
             android:id="@+id/nav_reserve"
             android:icon="@drawable/nav_reserve"
@@ -30,7 +31,8 @@
         <item
             android:id="@+id/nav_login"
             android:icon="@drawable/nav_login"
-            android:title="Iniciar Sesión"/>
+            android:title="Iniciar Sesión"
+            />
 
         <item
             android:id="@+id/nav_about"

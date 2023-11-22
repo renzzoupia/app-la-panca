@@ -51,7 +51,7 @@ public class ReservaActivity extends AppCompatActivity implements View.OnClickLi
     private boolean recyclerViewEnabled = false;
     RequestQueue requestQueue;
     private RecyclerView.Adapter adapter;
-    private String mesaId, clieId;
+    private String mesaId, clieId, cantidadPersona;
     private Context context;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,10 +82,13 @@ public class ReservaActivity extends AppCompatActivity implements View.OnClickLi
 
     }
     public void obtenerMesa(){
-        mesa = (Mesa) getIntent().getSerializableExtra("mesa");
 
+        mesa = (Mesa) getIntent().getSerializableExtra("mesa");
         nameMesa.setText(mesa.getMesaNumero());
         mesaId = mesa.getMesaId();
+        cantidadPersona = mesa.getMesaCantidadPersonas();
+        personaCantidad.setText("Mesa para " + mesa.getMesaCantidadPersonas() + " personas");
+
     }
 
     @Override
@@ -182,7 +185,7 @@ public class ReservaActivity extends AppCompatActivity implements View.OnClickLi
                 parametros.put("rese_clie_id", clieIdRecibido);
                 parametros.put("rese_fecha", fechaReserva.getText().toString());
                 parametros.put("rese_hora", horaReserva.getText().toString());
-                parametros.put("rese_personas", personaCantidad.getText().toString());
+                parametros.put("rese_personas", cantidadPersona);
 
 
                 return parametros;

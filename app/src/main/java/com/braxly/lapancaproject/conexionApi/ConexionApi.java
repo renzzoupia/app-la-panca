@@ -32,12 +32,6 @@ import java.util.Objects;
 public class ConexionApi {
     public static final String URL_BASE = "https://panca.informaticapp.com/";
     public static String AUTH = "Basic YTJhYTA3YWRmaGRmcmV4ZmhnZGZoZGZlcnR0Z2VsUWl6NFFOY0VPR0hqby4ya1B6dVoza0Y0LlZEbWo2OmEyYWEwN2FkZmhkZnJleGZoZ2RmaGRmZXJ0dGdlNkl0RnU2Zzd2VmJ3Skd3SnJYMnhudTJxanUvZmpjdQ==";
-    public static String clieId;
-    public static String clieUsuario = "";
-    public static String clieCorreo = "";
-    public static String clieDni;
-    public static  String clieCelular;
-    public static String clieDireccion;
     RequestQueue requestQueue;
     public void realizarDetallePedido(String depePediId, String depeProdId, String depeCantidad, String depeSubtotal, Context context){
 

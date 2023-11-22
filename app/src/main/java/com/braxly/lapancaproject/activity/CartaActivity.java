@@ -29,6 +29,7 @@ import com.braxly.lapancaproject.MailJob;
 import com.braxly.lapancaproject.ManejarCarta;
 import com.braxly.lapancaproject.R;
 import com.braxly.lapancaproject.conexionApi.ConexionApi;
+import com.braxly.lapancaproject.helper.TinyDB;
 import com.braxly.lapancaproject.models.DetallePedido;
 import com.braxly.lapancaproject.models.Pedido;
 import com.braxly.lapancaproject.models.Producto;
@@ -50,7 +51,7 @@ public class CartaActivity extends AppCompatActivity{
     private RecyclerView.Adapter adapter;
     private RecyclerView recyclerViewList;
     private ManejarCarta manejarCarta;
-    private TextView totalFeeTxt, taxTxt, deliveryTxt, totalTxt, emptyTxt, direccionUsuarioTxt;
+    public TextView totalFeeTxt, taxTxt, deliveryTxt, totalTxt, emptyTxt, direccionUsuarioTxt;
     private double tax;
     private ScrollView scrollView;
     private ImageView backBtn, backBtnDos;
@@ -65,6 +66,7 @@ public class CartaActivity extends AppCompatActivity{
 
         manejarCarta = new ManejarCarta(this);
 
+        manejarCarta.obtenerCarrito().clear();
         iniciarActivity();
         iniciarLista();
         calcularCarta();
@@ -72,10 +74,9 @@ public class CartaActivity extends AppCompatActivity{
         setVariable2();
 
         enviarPedido();
-    }
-    private void enviarCorreo(){
 
     }
+
     private void iniciarActivity(){
         totalFeeTxt = findViewById(R.id.totalFeeTxt);
         taxTxt = findViewById(R.id.taxTxt);
@@ -131,7 +132,7 @@ public class CartaActivity extends AppCompatActivity{
         }
     }
 
-    private void calcularCarta(){
+    public void calcularCarta(){
         //double porcentajeTax = 0.02; // you can cambiar este objeto por  txtPrice
         double delivery = 10;
         //tax = Math.round(((manejarCarta.getTotalFee()))/100.0);
@@ -151,95 +152,7 @@ public class CartaActivity extends AppCompatActivity{
         btnEnviarCarrito.setOnClickListener(view -> {
             realizarPedido();
 
-            //String pedi = ConexionApi.pedidoId;
-            //Toast.makeText(getApplicationContext(), "Pediste " + pedi, Toast.LENGTH_SHORT).show();
-            ///////////////////////////77
 
-          /*  String url = ConexionApi.URL_BASE + "pedido";
-            StringRequest request = new StringRequest(
-                    Request.Method.POST,
-                    url,
-                    new Response.Listener<String>() {
-                        @Override
-                        public void onResponse(String response) {
-
-                            try {
-                                JSONObject jsonObject = new JSONObject(response);
-
-
-                                // Obtén el valor de "usua_id" del objeto "credenciales"
-                                pedidoIdFinal = jsonObject.getString("Pedido");
-
-                            } catch (JSONException e) {
-                                Log.e("JSON", Objects.requireNonNull(e.getMessage()));
-                                e.printStackTrace();
-                            }
-                        }
-                    },
-                    new Response.ErrorListener() {
-                        @Override
-                        public void onErrorResponse(VolleyError error) {
-                            //Toast.makeText(context, error.getMessage(), Toast.LENGTH_SHORT).show();
-                            Log.e("ERROR", Objects.requireNonNull(error.getMessage()));
-                            //System.out.println(error.getMessage());
-
-                        }
-                    }
-            ){
-                //cargando los datos a enviar
-                @Nullable
-                @Override
-                protected Map<String, String> getParams() throws AuthFailureError {
-                    //Toast t = Toast.makeText(context, mesaId + clieId + tipoPedido + fechaPedido + total, Toast.LENGTH_LONG);
-                    //t.show();
-                /*Toast.makeText(context, mesaId, Toast.LENGTH_SHORT).show();
-                Toast.makeText(context, clieId, Toast.LENGTH_SHORT).show();
-                Toast.makeText(context, tipoPedido, Toast.LENGTH_SHORT).show();
-                Toast.makeText(context, fechaPedido, Toast.LENGTH_SHORT).show();
-                Toast.makeText(context, total, Toast.LENGTH_SHORT).show();
-                    Calendar calendar = Calendar.getInstance();
-                    Date date = calendar.getTime();
-                    // Formatear la fecha y hora según tu preferencia
-                    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-                    String dateTime = sdf.format(date);
-                    String total = Math.round(manejarCarta.getTotalPrecioCantidad() + 10) + "";
-                    ConexionApi conexionApi = new ConexionApi();
-
-                    //conexionApi.realizarPedido("1", "1", "Local", dateTime, total, getApplicationContext());
-
-                    Map<String,String> parametros = new HashMap<>();
-
-                    parametros.put("pedi_mesa_id", "1");
-                    parametros.put("pedi_clie_id", "1");
-                    parametros.put("pedi_tipo_pedido", "Local");
-                    parametros.put("pedi_fecha", dateTime);
-                    parametros.put("pedi_total", total);
-
-
-                    return parametros;
-                }
-                @Override
-                public Map<String, String> getHeaders() throws AuthFailureError{
-                    HashMap<String, String> params = new HashMap<String, String>();
-                    params.put("Authorization", ConexionApi.AUTH);
-                    return params;
-                }
-            };
-
-            requestQueue.add(request);
-*/
-                /*ArrayList<Producto> listaProducto2 = manejarCarta.obtenerCarrito();
-                for(int i = 0; i < listaProducto2.size(); i ++){
-                    double itemTotal = Math.round(listaProducto2.get(i).getProdPrecio() * listaProducto2.get(i).getNumberInCart());
-                    String itemTotalString = itemTotal + "";
-                    String depeCantidad = listaProducto2.get(i).getNumberInCart() + "";
-                    ConexionApi conexionApi = new ConexionApi();
-                    conexionApi.realizarDetallePedido("1",listaProducto2.get(i).getProdId(),depeCantidad,itemTotalString,getApplicationContext());
-                    //Toast toast = Toast.makeText(getApplicationContext(), "Pediste " + listaProducto2.get(i).getNumberInCart() + " "  + listaProducto2.get(i).getProdNombre() + "  y son: S/." + itemTotal, Toast.LENGTH_SHORT);
-                    //toast.show();
-                    //Toast.makeText(getApplicationContext(), "Pediste " + listaProducto2.get(i).getNumberInCart() + " "  + listaProducto2.get(i).getProdNombre() + "  y son: S/." + itemTotal, Toast.LENGTH_SHORT).show();
-
-                }*/
 
         });
     }
@@ -252,7 +165,7 @@ public class CartaActivity extends AppCompatActivity{
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        Log.e("PED", response);
+                        //Log.e("PED", response);
                         try {
                             JSONObject jsonObject = new JSONObject(response);
 
@@ -320,10 +233,13 @@ public class CartaActivity extends AppCompatActivity{
         SharedPreferences preferences = getSharedPreferences("Credenciales", Context.MODE_PRIVATE);
         String usuaUsernameRecibido = preferences.getString("usuaUsername", "No existe la información");
         String clieDireccionRecibido = preferences.getString("clieDireccion", "No existe la información");
+        String clieCorreoRecibido = preferences.getString("clieCorreo", "No existe la información");
+
         StringBuilder cuerpoCorreo = new StringBuilder();
-        cuerpoCorreo.append("Hola ").append(usuaUsernameRecibido).append(", usted acaba de pedir:\n\n");
+
 
         ArrayList<Producto> listaProducto2 = manejarCarta.obtenerCarrito();
+        cuerpoCorreo.append("Hola ").append(usuaUsernameRecibido).append(", usted acaba de pedir:\n\n");
         for(int i = 0; i < listaProducto2.size(); i ++){
             double itemTotal = Math.round(listaProducto2.get(i).getProdPrecio() * listaProducto2.get(i).getNumberInCart());
             String itemTotalString = itemTotal + "";
@@ -346,8 +262,10 @@ public class CartaActivity extends AppCompatActivity{
         String passwd = "xmpz fedu ibjs yztd";
 
         new MailJob(user, passwd).execute(
-                new MailJob.Mail("renzoupiachihua3@gmail.com", "renzoupiachihua3@gmail.com", "Tu Pedido",
+                new MailJob.Mail("lapanca.oficial@gmail.com", clieCorreoRecibido, "Tu Pedido",
                         cuerpoCorreo.toString())
         );
+        TinyDB tinydb = new TinyDB(getApplicationContext());
+        tinydb.clear();
     }
 }

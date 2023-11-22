@@ -29,8 +29,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class LoginActivity extends AppCompatActivity {
-    private EditText txtUsername, txtPass;
-    ImageButton goBackBtn;
+    private EditText txtUsername, txtPass; //Creando las variables que se usaran en el activity
+    private ImageButton goBackBtn;
     private Context context;
     RequestQueue requestQueue;
 
@@ -46,9 +46,10 @@ public class LoginActivity extends AppCompatActivity {
         txtUsername = findViewById (R.id.txtUsuario);
         txtPass = findViewById(R.id.txtContra);
         goBackBtn = findViewById(R.id.go_back);
+
         context = getApplicationContext();
 
-        requestQueue = Volley.newRequestQueue(context);
+        requestQueue = Volley.newRequestQueue(context); //Volley libreria q permite peticiones HTTP
     }
     private void regresarMain(){
         goBackBtn.setOnClickListener(view ->
@@ -62,22 +63,19 @@ public class LoginActivity extends AppCompatActivity {
 
         String usuario = txtUsername.getText().toString().trim();
         String contra = txtPass.getText().toString().trim();
-        String url2 = ConexionApi.URL_BASE + "login";
 
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
+        String url = ConexionApi.URL_BASE + "login";
+
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(//instanciado JsonObjectRequest
                 Request.Method.POST,
-                url2,
+                url,
                 null,
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
                         try {
 
-                            /*String Detalles = response.get("Datos").toString();
-                            JSONArray arreglo = new JSONArray(Detalles);
-                            JSONObject objeto = new JSONObject(arreglo.get(0).toString());*/
                             String valor = response.get("Status").toString();
-
 
                             if(valor.equals("200")){
                                 JSONObject datos = response.getJSONObject("Datos");
@@ -86,7 +84,7 @@ public class LoginActivity extends AppCompatActivity {
 
                                 String usuaId = datos.getString("usua_id");
                                 String usuaUsername = datos.getString("usua_username");
-                                String usuaLlaveSecreta = datos.getString("usua_llave_secreta");
+                                //String usuaLlaveSecreta = datos.getString("usua_llave_secreta");
 
                                 String clieDireccion = datos.getString("clie_direccion");
                                 String clieCorreo = datos.getString("clie_correo");

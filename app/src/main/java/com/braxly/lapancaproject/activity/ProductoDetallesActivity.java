@@ -2,7 +2,9 @@ package com.braxly.lapancaproject.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -98,11 +100,20 @@ public class ProductoDetallesActivity extends AppCompatActivity {
         });
 
         addToCartBtn.setOnClickListener(view -> {
-            producto.setNumberInCart(numberOrder);
-            manejarCarta.insertarComida(producto);
+            SharedPreferences preferences = getSharedPreferences("Credenciales", Context.MODE_PRIVATE);
+            String clieIdRecibido = preferences.getString("clieId", "No existe la información");
+            if (clieIdRecibido.equals("No existe la información")){
+                Toast.makeText(getApplicationContext(), "Debe iniciar sesión", Toast.LENGTH_SHORT).show();
+                Intent i = new Intent(ProductoDetallesActivity.this, MainActivity.class);
+                startActivity(i);
+            }else{
+                producto.setNumberInCart(numberOrder);
+                manejarCarta.insertarComida(producto);
 
-            Intent i = new Intent(ProductoDetallesActivity.this, MainActivity.class);
-            startActivity(i);
+                Intent i = new Intent(ProductoDetallesActivity.this, MainActivity.class);
+                startActivity(i);
+            }
+
         });
     }
 

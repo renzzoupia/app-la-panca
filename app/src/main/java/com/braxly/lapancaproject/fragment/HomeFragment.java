@@ -20,9 +20,11 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.airbnb.lottie.L;
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -35,8 +37,11 @@ import com.braxly.lapancaproject.activity.CartaActivity;
 import com.braxly.lapancaproject.activity.EleccionMesaActivity;
 import com.braxly.lapancaproject.activity.LoginActivity;
 import com.braxly.lapancaproject.activity.MainActivity;
+import com.braxly.lapancaproject.activity.ReservaActivity;
 import com.braxly.lapancaproject.conexionApi.ConexionApi;
 import com.braxly.lapancaproject.models.Producto;
+import com.braxly.lapancaproject.models.TipoProducto;
+import com.braxly.lapancaproject.recyclerAdapters.ListaProductoAdapterRecycler;
 import com.braxly.lapancaproject.recyclerAdapters.ProductoAdapterRecycler;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -44,30 +49,38 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class HomeFragment extends Fragment {
+public class HomeFragment extends Fragment implements SearchView.OnQueryTextListener{
     FloatingActionButton agregar;
-    private List<Producto> productos; //agregacion
-    private RequestQueue requestQueue;
-    private ProductoAdapterRecycler productoAdapterRecycler;
-    private RecyclerView recyclerViewProducto;
+    private static List<Producto> productos; //agregacion
+    private ArrayList<TipoProducto> listaTipoProducto;
+    private static RequestQueue requestQueue;
+    private static ProductoAdapterRecycler productoAdapterRecycler;
+    private ListaProductoAdapterRecycler listaProductoAdapterRecycler;
+    private RecyclerView recyclerViewProducto, recyclerViewListaTipoProducto;
     private TextView pasarVistaReserva;
     private String tipoFiltrado = "";
+    private SearchView txtBuscar;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
+        cargarListaProductos(requireContext());
         View rootView = inflater.inflate(R.layout.fragment_home, container, false);
+
+        //iniciarActivity(rootView);
+        recyclerViewTipoProducto(rootView);
         iniciarRecyclerViewProductos(rootView);
         pasarVistaDeLaReserva(rootView);
-        accionFiltrarPollo(rootView);
+
+        /*accionFiltrarPollo(rootView);
         accionFiltrarRefrescos(rootView);
         accionFiltrarGaseosas(rootView);
-        accionFiltrarAguaMineral(rootView);
+        accionFiltrarAguaMineral(rootView);*/
         /*TextView textView = rootView.findViewById(R.id.txtReservaAhora);
         textView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -81,6 +94,13 @@ public class HomeFragment extends Fragment {
         //bottomNavigation(rootView);
         return rootView;
     }
+    private void iniciarActivity(View rootView){
+        //txtBuscar = rootView.findViewById(R.id.txtBuscarProductos);
+
+        recyclerViewListaTipoProducto = rootView.findViewById(R.id.recyclerTipoProductos);
+
+        txtBuscar.setOnQueryTextListener(this);
+    }
     private void iniciarRecyclerViewProductos(View rootView) {
 
         //listaFiltrada = new ArrayList<>();
@@ -91,8 +111,9 @@ public class HomeFragment extends Fragment {
         recyclerViewProducto.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
         productoAdapterRecycler = new ProductoAdapterRecycler(productos);
         recyclerViewProducto.setAdapter(productoAdapterRecycler);
+
         agregar = rootView.findViewById(R.id.FABCarta);
-        cargarListaProductos();
+
 
         //escuchando al FAB principal
         agregar.setOnClickListener(new View.OnClickListener() {
@@ -114,9 +135,9 @@ public class HomeFragment extends Fragment {
         });
     }
 
-    private void cargarListaProductos() {
-        requestQueue = Volley.newRequestQueue(requireContext());
+    public static void cargarListaProductos(Context context) {
 
+        requestQueue = Volley.newRequestQueue(context);
         String url = Uri.parse(ConexionApi.URL_BASE + "producto")
                 .buildUpon()
                 .build().toString();
@@ -176,7 +197,7 @@ public class HomeFragment extends Fragment {
         };
 
         requestQueue.add(requerimiento);
-        }
+    }
 
     public void pasarVistaDeLaReserva(View rootView) {
         pasarVistaReserva = rootView.findViewById(R.id.txtReservaAhora);
@@ -198,7 +219,7 @@ public class HomeFragment extends Fragment {
             }
         });
     }
-
+/*
     public void accionFiltrarPollo(View rootView) {
         ConstraintLayout constraintLayout = rootView.findViewById(R.id.btnFiltrarPollos);
         final boolean[] activado = {false};
@@ -281,7 +302,7 @@ public class HomeFragment extends Fragment {
                         if (!activado[0]) {
                             // Cambiar el color del fondo al presionar solo si está desactivado
                             constraintLayout.setBackgroundResource(R.drawable.background_selector); // Color naranja
-                            filtrar("2");
+                            filtrar("3");
 
                         }
                         return true;
@@ -316,7 +337,7 @@ public class HomeFragment extends Fragment {
                         if (!activado[0]) {
                             // Cambiar el color del fondo al presionar solo si está desactivado
                             constraintLayout.setBackgroundResource(R.drawable.background_selector); // Color naranja
-                            filtrar("2");
+                            filtrar("4");
 
                         }
                         return true;
@@ -338,23 +359,53 @@ public class HomeFragment extends Fragment {
                 return false;
             }
         });
-    }
-    private void filtrar(String filtrado){
-        tipoFiltrado = filtrado; // Cambiar a tu tipo específico de producto
+    }*/
+    public static void filtrar(String filtrado){
+         // Cambiar a tu tipo específico de producto
         // Filtrar la lista y actualizar el RecyclerView
         filtrarProductosPorTipo(filtrado);
     }
-    private void filtrarProductosPorTipo(String tipo) {
+    public void mostrarMensaje(){
+        Toast.makeText(requireContext(), "Seleccionaste la ", Toast.LENGTH_LONG).show();
+    }
+    public static void filtrarProductosPorTipo(String tipo) {
         ArrayList<Producto> productosFiltrados = new ArrayList<>();
         for (Producto producto : productos) {
-            if (producto.getProdId().equals(tipo)) {
+            if (producto.getProdTiprId().equals(tipo)) {
                 productosFiltrados.add(producto);
             }
         }
         productoAdapterRecycler.filtrar(productosFiltrados);
     }
-    private void actualizarListaProductos() {
+    public static void actualizarListaProductos() {
         productoAdapterRecycler.actualizarListaCompleta(productos);
-        cargarListaProductos();
+    }
+
+    public void recyclerViewTipoProducto(View rootView){
+        listaTipoProducto = new ArrayList<>();
+
+        listaTipoProducto.add(new TipoProducto("Pollos", R.drawable.chicken, "1"));
+        listaTipoProducto.add(new TipoProducto("Refrescos", R.drawable.refresco, "2"));
+        listaTipoProducto.add(new TipoProducto("Aguas", R.drawable.agua, "3"));
+        listaTipoProducto.add(new TipoProducto("Gaseosas", R.drawable.soda, "4"));
+        listaTipoProducto.add(new TipoProducto("Plato carta", R.drawable.dish, "5"));
+
+        recyclerViewListaTipoProducto = rootView.findViewById(R.id.recyclerTipoProductos);
+        recyclerViewListaTipoProducto.setLayoutManager(new LinearLayoutManager(requireContext(),RecyclerView.HORIZONTAL,false));
+        listaProductoAdapterRecycler = new ListaProductoAdapterRecycler(listaTipoProducto);
+        recyclerViewListaTipoProducto.setAdapter(listaProductoAdapterRecycler);
+        recyclerViewListaTipoProducto.setHasFixedSize(true);
+        recyclerViewListaTipoProducto.setNestedScrollingEnabled(false);
+    }
+
+    @Override
+    public boolean onQueryTextSubmit(String s) {
+        return false;
+    }
+
+    @Override
+    public boolean onQueryTextChange(String s) {
+        productoAdapterRecycler.filtrado(s);
+        return false;
     }
 }

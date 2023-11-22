@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/btnRegresarModificar"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/orange_light"
+    android:orientation="vertical"
+    tools:context=".activity.EditarClienteActivity">
+
+    <LinearLayout
+        android:layout_width="70dp"
+        android:layout_height="80dp"
+        android:background="@color/orange_light"
+        android:gravity="bottom"
+        android:orientation="horizontal">
+
+        <ImageButton
+            android:id="@+id/goBackModificarDatos"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_weight="1"
+            android:background="@color/orange_light"
+            app:srcCompat="@drawable/ic_arrow_back" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/orange_light"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+
+        <TextView
+            android:id="@+id/txtTituloRegistrarModificar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:fontFamily="@font/nexa_light"
+            android:gravity="center"
+            android:text="Modifique sus datos"
+            android:textColor="@color/light"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+
+
+        <EditText
+            android:id="@+id/txtClienNombres"
+            android:layout_width="300dp"
+            android:layout_height="50dp"
+            android:layout_margin="10dp"
+            android:background="@drawable/rounded_corners"
+            android:ems="20"
+            android:fontFamily="@font/nexa_light"
+            android:hint="  Nombres completos"
+            android:inputType="text"
+            android:padding="10dp"
+            android:textColor="@color/darkblue"
+            android:textColorHint="@color/blue" />
+
+        <EditText
+            android:id="@+id/txtClienApellidos"
+            android:layout_width="300dp"
+            android:layout_height="50dp"
+            android:layout_margin="10dp"
+            android:background="@drawable/rounded_corners"
+            android:ems="20"
+            android:fontFamily="@font/nexa_light"
+            android:hint="  Apellidos Completos"
+            android:inputType="text"
+            android:padding="10dp"
+            android:textColor="@color/darkblue"
+            android:textColorHint="@color/blue" />
+
+        <EditText
+            android:id="@+id/txtClienDni"
+            android:layout_width="300dp"
+            android:layout_height="50dp"
+            android:layout_margin="10dp"
+            android:background="@drawable/rounded_corners"
+            android:ems="20"
+            android:fontFamily="@font/nexa_light"
+            android:hint="  DNI"
+            android:inputType="number"
+            android:maxLength="8"
+            android:padding="10dp"
+            android:textColor="@color/darkblue"
+            android:textColorHint="@color/blue" />
+
+        <EditText
+            android:id="@+id/txtClienCelular"
+            android:layout_width="300dp"
+            android:layout_height="50dp"
+            android:layout_margin="10dp"
+            android:background="@drawable/rounded_corners"
+            android:ems="20"
+            android:fontFamily="@font/nexa_light"
+            android:hint="  Celular"
+            android:inputType="phone"
+            android:maxLength="9"
+            android:padding="10dp"
+            android:textColor="@color/darkblue"
+            android:textColorHint="@color/blue" />
+
+        <EditText
+            android:id="@+id/txtClienCorreo"
+            android:layout_width="300dp"
+            android:layout_height="50dp"
+            android:layout_margin="10dp"
+            android:background="@drawable/rounded_corners"
+            android:ems="20"
+            android:fontFamily="@font/nexa_light"
+            android:hint="  Correo Electronico"
+            android:inputType="textEmailAddress"
+            android:padding="10dp"
+            android:textColor="@color/darkblue"
+            android:textColorHint="@color/blue" />
+
+        <EditText
+            android:id="@+id/txtClienDireccion"
+            android:layout_width="300dp"
+            android:layout_height="50dp"
+            android:layout_margin="10dp"
+            android:background="@drawable/rounded_corners"
+            android:ems="20"
+            android:fontFamily="@font/nexa_light"
+            android:hint="  Dirección de su domicilio"
+            android:inputType="textPostalAddress"
+            android:padding="10dp"
+            android:textColor="@color/darkblue"
+            android:textColorHint="@color/blue" />
+
+
+        <EditText
+            android:layout_width="300dp"
+            android:layout_height="50dp"
+            android:layout_margin="10dp"
+            android:background="@drawable/rounded_corners"
+            android:drawableLeft="@drawable/ic_lock"
+            android:ems="10"
+            android:fontFamily="@font/nexa_light"
+            android:hint="  Contraseña"
+            android:inputType="textPassword"
+            android:padding="10dp"
+            android:textColor="@color/darkblue"
+            android:textColorHint="@color/blue"
+            android:visibility="gone" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnModificarDatos"
+            android:layout_width="302dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="40dp"
+            android:background="@drawable/rounded_corners"
+            android:fontFamily="@font/nexa_light"
+            android:foreground="?attr/selectableItemBackgroundBorderless"
+            android:gravity="center"
+            android:onClick="registrarCliente"
+            android:text="Modificar datos"
+            android:textColor="@color/black" />
+    </LinearLayout>
+</LinearLayout>

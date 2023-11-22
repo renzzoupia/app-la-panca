@@ -3,6 +3,7 @@ package com.braxly.lapancaproject.recyclerAdapters;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.view.LayoutInflater;
@@ -24,13 +25,41 @@ import com.bumptech.glide.load.resource.bitmap.GranularRoundedCorners;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class ProductoAdapterRecycler extends RecyclerView.Adapter<ProductoAdapterRecycler.ViewHolder> {
     Context context;
-    List<Producto> producto;
+    List<Producto> productoFiltrado;//producto filtrado
+    List<Producto> listaProducto;//todos los datos
 
-    public ProductoAdapterRecycler(List<Producto> producto){
-        this.producto = producto;
+    public ProductoAdapterRecycler(List<Producto> listaProducto){
+        this.listaProducto = listaProducto;
+        productoFiltrado = new ArrayList<>();
+        productoFiltrado.addAll(listaProducto);
+    }
+
+    public void filtrado(String txtBuscar){
+        int longitud = txtBuscar.length();
+        if(longitud == 0){
+            listaProducto.clear();
+            listaProducto.addAll(productoFiltrado);
+        }else{
+            if(Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N){
+                List<Producto> collecion = listaProducto.stream()
+                        .filter(i -> i.getProdNombre().toLowerCase()
+                                .contains(txtBuscar.toLowerCase()))
+                        .collect(Collectors.toList());
+                productoFiltrado.clear();
+                productoFiltrado.addAll(collecion);
+            }else{
+                for(Producto c: productoFiltrado){
+                    if(c.getProdNombre().toLowerCase().contains(txtBuscar.toLowerCase())){
+                        productoFiltrado.add(c);
+                    }
+                }
+            }
+        }
+        notifyDataSetChanged();
     }
     @NonNull
     @Override
@@ -42,10 +71,10 @@ public class ProductoAdapterRecycler extends RecyclerView.Adapter<ProductoAdapte
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, @SuppressLint("RecyclerView") int position) {
-        holder.titleTxt.setText(producto.get(position).getProdNombre());
+        holder.titleTxt.setText(listaProducto.get(position).getProdNombre());
         holder.timeTxt.setText("20 min");
-        holder.ScoreTxt.setText("S/. " + producto.get(position).getProdPrecio());
-        String imageUrl = producto.get(position).getProdFoto();
+        holder.ScoreTxt.setText("S/. " + listaProducto.get(position).getProdPrecio());
+        String imageUrl = listaProducto.get(position).getProdFoto();
 
         Glide.with(holder.itemView.getContext())
                 .load(imageUrl)
@@ -56,26 +85,26 @@ public class ProductoAdapterRecycler extends RecyclerView.Adapter<ProductoAdapte
             public void onClick(View view) {
                 Intent intent = new Intent(holder.itemView.getContext(), ProductoDetallesActivity.class);
 
-                intent.putExtra("producto", producto.get(position));
+                intent.putExtra("producto", listaProducto.get(position));
 
                 holder.itemView.getContext().startActivity(intent);
             }
         });
     }
-    public void filtrar(ArrayList<Producto> listaFiltrada) {
-        producto.clear();
-        producto.addAll(listaFiltrada);
+    public void filtrar(List<Producto> listaFiltrada) {
+        listaProducto.clear();
+        listaProducto.addAll(listaFiltrada);
         notifyDataSetChanged();
     }
 
     public void actualizarListaCompleta(List<Producto> listaCompleta) {
-        producto.clear();
-        producto.addAll(listaCompleta);
+        listaProducto.clear();
+        listaProducto.addAll(listaCompleta);
         notifyDataSetChanged();
     }
     @Override
     public int getItemCount() {
-        return producto.size();
+        return listaProducto.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {

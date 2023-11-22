@@ -29,7 +29,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/fast_1" />
+                    app:srcCompat="@drawable/fast_2" />
 
                 <ImageView
                     android:id="@+id/btnBackMain"
@@ -121,13 +121,13 @@
                             app:layout_constraintVertical_bias="@+id/imageView4" />
 
                         <TextView
-                            android:id="@+id/textView12"
+                            android:id="@+id/textViewDelivery"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_margin="8dp"
                             android:text="Delivery"
                             android:textColor="@color/black"
-                            app:layout_constraintEnd_toEndOf="@+id/txtStart"
+                            app:layout_constraintEnd_toEndOf="@+id/txtTime"
                             app:layout_constraintStart_toStartOf="@+id/imageView4"
                             app:layout_constraintTop_toBottomOf="@+id/imageView4" />
                     </androidx.constraintlayout.widget.ConstraintLayout>
@@ -145,7 +145,7 @@
                         android:layout_weight="0.33">
 
                         <ImageView
-                            android:id="@+id/imageView4"
+                            android:id="@+id/imageViewStar"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="24dp"
@@ -162,27 +162,27 @@
                             android:text="0"
                             android:textColor="@color/black"
                             android:textStyle="bold"
-                            app:layout_constraintBottom_toBottomOf="@+id/imageView4"
+                            app:layout_constraintBottom_toBottomOf="@+id/imageViewStar"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintHorizontal_bias="0.0"
-                            app:layout_constraintStart_toEndOf="@+id/imageView4"
-                            app:layout_constraintTop_toTopOf="@+id/imageView4"
-                            app:layout_constraintVertical_bias="@+id/imageView4" />
+                            app:layout_constraintStart_toEndOf="@+id/imageViewStar"
+                            app:layout_constraintTop_toTopOf="@+id/imageViewStar"
+                            app:layout_constraintVertical_bias="@+id/imageViewStar" />
 
                         <TextView
-                            android:id="@+id/textView12"
+                            android:id="@+id/textViewPuntuacion"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_margin="8dp"
-                            android:text="Rating"
+                            android:text="Puntuación"
                             android:textColor="@color/black"
                             app:layout_constraintEnd_toEndOf="@+id/txtStart"
-                            app:layout_constraintStart_toStartOf="@+id/imageView4"
-                            app:layout_constraintTop_toBottomOf="@+id/imageView4" />
+                            app:layout_constraintStart_toStartOf="@+id/imageViewStar"
+                            app:layout_constraintTop_toBottomOf="@+id/imageViewStar" />
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
                     <View
-                        android:id="@+id/view2"
+                        android:id="@+id/view4"
                         android:layout_width="1dp"
                         android:layout_height="wrap_content"
                         android:layout_margin="8dp"
@@ -194,7 +194,7 @@
                         android:layout_weight="0.33">
 
                         <ImageView
-                            android:id="@+id/imageView4"
+                            android:id="@+id/imageViewCal"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="16dp"
@@ -211,23 +211,23 @@
                             android:text="0 cal"
                             android:textColor="@color/black"
                             android:textStyle="bold"
-                            app:layout_constraintBottom_toBottomOf="@+id/imageView4"
+                            app:layout_constraintBottom_toBottomOf="@+id/imageViewCal"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintHorizontal_bias="0.0"
-                            app:layout_constraintStart_toEndOf="@+id/imageView4"
-                            app:layout_constraintTop_toTopOf="@+id/imageView4"
-                            app:layout_constraintVertical_bias="@+id/imageView4" />
+                            app:layout_constraintStart_toEndOf="@+id/imageViewCal"
+                            app:layout_constraintTop_toTopOf="@+id/imageViewCal"
+                            app:layout_constraintVertical_bias="@+id/imageViewCal" />
 
                         <TextView
-                            android:id="@+id/textView12"
+                            android:id="@+id/textViewCalorias"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_margin="8dp"
-                            android:text="Energy"
+                            android:text="Calorias"
                             android:textColor="@color/black"
-                            app:layout_constraintEnd_toEndOf="@+id/txtStart"
-                            app:layout_constraintStart_toStartOf="@+id/imageView4"
-                            app:layout_constraintTop_toBottomOf="@+id/imageView4" />
+                            app:layout_constraintEnd_toEndOf="@+id/txtCal"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/imageViewCal" />
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
 

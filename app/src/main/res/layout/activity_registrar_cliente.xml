@@ -149,7 +149,7 @@
             android:textColor="@color/darkblue"
             android:textColorHint="@color/blue" />
         <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btnRegistrarCliente"
+            android:id="@+id/btnModificarDatos"
             android:layout_width="302dp"
             android:layout_height="50dp"
             android:layout_marginTop="40dp"

@@ -53,7 +53,6 @@ public class ReserveFragment extends Fragment {
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_reserve, container, false);
         iniciarActivity(rootView);
-        filtrar("1");
         return rootView;
     }
     private void iniciarActivity(View rootView){

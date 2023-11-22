@@ -4,6 +4,7 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="orange_light">#FF9F43</color>
+    <color name="red">#E61111</color>
     <color name="light">#f2f2f0</color>
     <color name="darkblue">#272e4f</color>
     <color name="blue">#2c365d</color>

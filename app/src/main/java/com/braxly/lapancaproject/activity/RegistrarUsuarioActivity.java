@@ -91,7 +91,6 @@ private void ola(){
                             usuaId = credencialesObject.getString("usua_id");
 
                             Intent intentRegistrar = new Intent(getApplicationContext(), RegistrarClienteActivity.class);
-                            intentRegistrar .putExtra("MODO", "MODIFICACION");
                             intentRegistrar.putExtra("usuaId", usuaId);
                             startActivity(intentRegistrar );
 
