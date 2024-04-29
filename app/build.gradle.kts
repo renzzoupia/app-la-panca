@@ -1,7 +1,16 @@
 plugins {
     id("com.android.application")
+    id("org.sonarqube") version "5.0.0.4638"
 }
-
+sonarqube {
+    properties {
+        property("sonar.projectKey", "prueba")
+        property("sonar.host.url", "http://172.19.46.55:9000")
+        property("sonar.token", "sqp_d6602c7c0a244ad76ce41d1398a9e280c2a2a8d6")
+        property("sonar.login", "admin")
+        property("sonar.password", "admin1")
+    }
+}
 android {
     namespace = "com.braxly.lapancaproject"
     compileSdk = 33
@@ -10,8 +19,8 @@ android {
         applicationId = "com.braxly.lapancaproject"
         minSdk = 26
         targetSdk = 33
-        versionCode = 1
-        versionName = "1.0"
+        versionCode = 4
+        versionName = "4"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }

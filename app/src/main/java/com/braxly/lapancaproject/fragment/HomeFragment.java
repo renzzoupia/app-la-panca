@@ -150,8 +150,7 @@ public class HomeFragment extends Fragment implements SearchView.OnQueryTextList
                         try {
 
                             int totalRegistros = response.getInt("Total de registros");
-
-                           for (int i = 0; i < totalRegistros; i++) {
+                              for (int i = 0; i < totalRegistros; i++) {
 
                                 String valor = response.get("Detalles").toString();
                                 JSONArray arreglo = new JSONArray(valor);
@@ -175,7 +174,7 @@ public class HomeFragment extends Fragment implements SearchView.OnQueryTextList
                                 productoAdapterRecycler.notifyItemRangeInserted(productos.size(),1);
                             }
 
-                        } catch (JSONException e) {
+                        } catch (Exception e) {
                             throw new RuntimeException(e);
                         }
 
