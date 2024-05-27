@@ -2,15 +2,15 @@ plugins {
     id("com.android.application")
     id("org.sonarqube") version "5.0.0.4638"
 }
-sonarqube {
+/*sonar {
     properties {
-        property("sonar.projectKey", "prueba")
-        property("sonar.host.url", "http://172.19.46.55:9000")
-        property("sonar.token", "sqp_d6602c7c0a244ad76ce41d1398a9e280c2a2a8d6")
+        property("sonar.projectKey", "panca")
+        property("sonar.host.url", "http://localhost:9000")
+        property("sonar.token", "sqp_21c8a43207c6a73f1b292c416df4e4389d39419c")
         property("sonar.login", "admin")
         property("sonar.password", "admin1")
     }
-}
+}*/
 android {
     namespace = "com.braxly.lapancaproject"
     compileSdk = 33
@@ -40,7 +40,6 @@ android {
 
 dependencies {
     implementation ("com.android.volley:volley:1.2.1")
-
     implementation ("androidx.appcompat:appcompat:1.4.0")
     implementation ("androidx.appcompat:appcompat:1.5.1")
     implementation ("com.google.android.material:material:1.8.0") //Boostrap de android - soolo diseños
