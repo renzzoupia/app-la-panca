@@ -7,18 +7,15 @@ pipeline {
     }
 
     stages {
-        stage('Preparation') {
-            steps {
-                // Clona el repositorio desde GitHub
-                git 'https://github.com/renzzoupia/app-la-panca.git'
-                echo 'Pulled from github successfully'
+        stage('Clone') {
+            dir('.') {
+                git branch: 'main', credentialsId: 'github_com', url: 'git@github.com:renzzoupia/app-la-panca.git'
             }
         }
 
         stage('Build') {
-            steps {
-                // Construye el proyecto
-                sh './gradlew assembleDebug'
+            withGradle {
+                sh './gradlew clean build --stacktrace -i'
             }
         }
 
