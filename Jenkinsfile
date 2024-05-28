@@ -13,7 +13,7 @@ pipeline {
                 git 'https://github.com/renzzoupia/app-la-panca.git'
                 echo 'Pulled from github successfully'
             }
-    }
+        }
 
         stage('Build') {
             steps {
@@ -33,6 +33,7 @@ pipeline {
                     junit '**/build/test-results/testDebugUnitTest/*.xml'
                 }
             }
+        }
         //Revisa la calidad de código con SonarQube
         stage('Analysis SonarQube') {
            steps {
@@ -41,9 +42,6 @@ pipeline {
            }
         }
     }
-
-    }
-
     post {
         always {
             // Limpia el directorio de trabajo
