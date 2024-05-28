@@ -6,6 +6,13 @@ plugins {
     id("com.android.application") version "8.1.2" apply false
     id("org.sonarqube") version "5.0.0.4638"
 }
+
+sonar {
+    properties {
+        property("sonar.projectKey", "app-la-panca")
+        property("sonar.projectName", "LaPancaProject")
+    }
+}
 /*
 sonar {
     properties {
