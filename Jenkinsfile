@@ -12,7 +12,8 @@ pipeline {
     stages {
         stage('Preparation') {
             steps {
-                git branch: 'main',url: 'https://github.com/renzzoupia/app-la-panca.git'
+                // Clonar el repositorio
+                git url: 'https://github.com/renzzoupia/app-la-panca.git', branch: 'main'
                 // Otorga permisos de ejecución al archivo gradlew
                 sh 'chmod +x ./gradlew'
             }
