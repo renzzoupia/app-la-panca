@@ -6,8 +6,7 @@ pipeline {
     }
 
     environment {
-        ANDROID_HOME = "/opt/android-sdk" // Reemplaza con la ruta real del SDK de Android en tu servidor Jenkins
-        PATH = "${env.PATH}:${env.ANDROID_HOME}/cmdline-tools/latest/bin:${env.ANDROID_HOME}/platform-tools"
+        ANDROID_HOME = "/home/renzo/Android/sdk" // Reemplaza con la ruta real del SDK de Android en tu servidor Jenkins
     }
 
     stages {
