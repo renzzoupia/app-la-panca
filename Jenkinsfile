@@ -6,7 +6,7 @@ pipeline {
     }
 
     environment {
-        ANDROID_HOME = "/home/renzo/Android/sdk" // Reemplaza con la ruta real del SDK de Android en tu servidor Jenkins
+        ANDROID_SDK_ROOT = 'C:\\Users\\Renzo\\AppData\\Local\\Android\\Sdk'
     }
 
     stages {
