@@ -21,3 +21,5 @@ w
 Gapp/src/main/java/com/braxly/lapancaproject/activity/CartaActivity.java,5\3\53d6c96af5ef4813fe4e1b804f62fedc705861e8
 ;
 Jenkinsfile,0\c\0c2c5c506cef0ed2d3ad2b7e45e97980b66f5520
+@
+local.properties,0\7\0712df971a99ac4d2fccb8e0fb19f377f3374cca
