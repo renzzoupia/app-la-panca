@@ -7,7 +7,7 @@ pipeline {
     }
 
     environment {
-            ANDROID_HOME = "/opt/android-sdk" // Reemplaza esto con la ruta real del SDK de Android en tu servidor
+            ANDROID_HOME = "C/://Users//Renzo//AppData//Local//Android//Sdk" // Reemplaza esto con la ruta real del SDK de Android en tu servidor
             PATH = "${env.PATH}:${env.ANDROID_HOME}/cmdline-tools/latest/bin:${env.ANDROID_HOME}/platform-tools"
     }
 
