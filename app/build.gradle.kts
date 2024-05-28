@@ -21,9 +21,16 @@ android {
         targetSdk = 33
         versionCode = 4
         versionName = "4"
-
+    //  testApplicationId "com.braxly.lapancaproject"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
+
+    /*
+    testOptions{
+        reportDir = "$project.buildDir/results/report"
+        resultsDir = "$project.buildDir/results"
+    }
+    */
 
     buildTypes {
         release {
@@ -54,6 +61,7 @@ dependencies {
 
     testImplementation ("junit:junit:4.13.2")
     testImplementation ("org.mockito:mockito-android:3.12.4")
+    //testImplementation ("org.mockito:mockito-junit-jupiter:4.6.1")
     androidTestImplementation ("androidx.test.ext:junit:1.1.3")
     androidTestImplementation ("androidx.test.espresso:espresso-core:3.4.0")
 }
