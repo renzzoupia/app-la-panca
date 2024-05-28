@@ -5,7 +5,7 @@ pipeline {
         gradle 'GRADLE' // Asegúrate de tener configurada una instalación de Gradle en Jenkins
     }
     environment {
-        ANDROID_HOME = '/var/lib/renzo/android-sdk' // Asegúrate de que esta ruta sea correcta y accesible
+        ANDROID_HOME = '/home/renzo/android-sdk' // Asegúrate de que esta ruta sea correcta y accesible
         PATH = "${ANDROID_HOME}/tools:${ANDROID_HOME}/platform-tools:${PATH}"
     }
 
