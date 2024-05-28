@@ -13,6 +13,12 @@ sonar {
         property("sonar.projectName", "LaPancaProject")
     }
 }
+sonar {
+    properties {
+        property("sonar.projectKey", "app-la-panca")
+        property("sonar.projectName", "LaPancaProject")
+    }
+}
 /*
 sonar {
     properties {
