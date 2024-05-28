@@ -5,10 +5,6 @@ pipeline {
         gradle 'GRADLE' // Asegúrate de tener configurada una instalación de Gradle en Jenkins
     }
 
-    environment {
-        ANDROID_SDK_ROOT = 'C:\\Users\\Renzo\\AppData\\Local\\Android\\Sdk'
-    }
-
     stages {
         stage('Preparation') {
             steps {
