@@ -12,7 +12,7 @@ pipeline {
     stages {
         stage('Preparation') {
             steps {
-                git branch: 'main',url: 'https://github.com/renzzoupia/app-la-panca'
+                git branch: 'main',url: 'https://github.com/renzzoupia/app-la-panca.git'
                 // Otorga permisos de ejecución al archivo gradlew
                 sh 'chmod +x ./gradlew'
             }
