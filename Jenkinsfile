@@ -10,7 +10,7 @@ pipeline {
     }
 
     stages {
-        stage('Preparation') {
+        stage('Preparación del proyecto y clonación') {
             steps {
                 // Clonar el repositorio
                 git url: 'https://github.com/renzzoupia/app-la-panca.git', branch: 'main'
@@ -18,7 +18,7 @@ pipeline {
             }
         }
         // Compila los test y los ejecuta
-        stage('Testing the code') {
+        stage('Ejecución de las pruebas unitarias') {
             steps {
                 sh 'chmod +x ./gradlew'
                 sh './gradlew test'
