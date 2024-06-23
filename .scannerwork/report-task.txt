@@ -1,0 +1,6 @@
+projectKey=panca-movil
+serverUrl=http://ec2-18-235-233-194.compute-1.amazonaws.com:9000
+serverVersion=10.5.1.90531
+dashboardUrl=http://ec2-18-235-233-194.compute-1.amazonaws.com:9000/dashboard?id=panca-movil
+ceTaskId=ceec2807-b6e0-4aea-b712-66b0ca2bf786
+ceTaskUrl=http://ec2-18-235-233-194.compute-1.amazonaws.com:9000/api/ce/task?id=ceec2807-b6e0-4aea-b712-66b0ca2bf786

@@ -44,7 +44,20 @@ android {
     }
 
 }
-
+/*
+sonarqube {
+    properties {
+        property("sonar.projectName", "pancapp")
+        property("sonar.projectKey", "app-la-panca")
+        property("sonar.lenguage", "java")
+        property("sonar.sources", "src/main/java")
+        property("sonar.binaries", "build")
+        property("sonar.sourceEncoding", "UTF-8")
+        property("sonar.token", "squ_9a85a5d51eeb4dc04c69e18c75487d0fd823f407")
+        property("sonar.login", "admin")
+        property("sonar.password", "admin123")
+    }
+}*/
 dependencies {
     implementation ("com.android.volley:volley:1.2.1")
     implementation ("androidx.appcompat:appcompat:1.4.0")

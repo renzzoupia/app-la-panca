@@ -23,3 +23,5 @@ Gapp/src/main/java/com/braxly/lapancaproject/activity/CartaActivity.java,5\3\53
 Jenkinsfile,0\c\0c2c5c506cef0ed2d3ad2b7e45e97980b66f5520
 @
 local.properties,0\7\0712df971a99ac4d2fccb8e0fb19f377f3374cca
+H
+sonar-project.properties,2\5\2538046035efb77ecc44e1fd2eec1e2641594d4c

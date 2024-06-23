@@ -26,11 +26,11 @@ pipeline {
             }
         }
         // Revisa la calidad de código con SonarQube
-        stage('Analysis SonarQube') {
+        /*stage('Analysis SonarQube') {
             steps {
                 sh './gradlew sonar -Dsonar.login=squ_b2f1d63b7b4fbb6179a37c3fb1ccbd457316d343 -Dsonar.projectKey=app-la-panca -Dsonar.projectName="LaPancaProject" -Dsonar.host.url=http://192.168.18.224:9000'
                 echo 'SonarQube Code review done'
             }
-        }
+        }*/
     }
 }
