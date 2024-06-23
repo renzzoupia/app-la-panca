@@ -1,7 +1,7 @@
 pipeline {
     agent any
     tools {
-        jdk 'JDK' // Asegúrate de tener configurada una instalación de JDK en Jenkins
+        //jdk 'JDK'  Asegúrate de tener configurada una instalación de JDK en Jenkins
         gradle 'GRADLE' // Asegúrate de tener configurada una instalación de Gradle en Jenkins
     }
     environment {
@@ -15,12 +15,12 @@ pipeline {
                 // Clonar el repositorio
                 git url: 'https://github.com/renzzoupia/app-la-panca.git', branch: 'main'
                 // Otorga permisos de ejecución al archivo gradlew
-                sh 'chmod +x ./gradlew'
             }
         }
         // Compila los test y los ejecuta
         stage('Testing the code') {
             steps {
+                sh 'chmod +x ./gradlew'
                 sh './gradlew test'
                 echo 'Unit Test successfully'
             }
